@@ -30,7 +30,7 @@
                                     <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
                                 </div>
 
-                                <button class="form-control btn btn-login" type="submit">Sign in</button>
+                                <button class="form-control btn btn-login" type="submit" name="login">Sign in</button>
                             </form>
 
                             <!-- Signup form -->
@@ -100,7 +100,7 @@
                                     </label>
                                 </div>
 
-                                <button class="form-control btn btn-register" type="submit">Register</button>
+                                <button class="form-control btn btn-register" type="submit" name="form-signup-submit">Register</button>
                             </form>
                         </div>
                     </div>

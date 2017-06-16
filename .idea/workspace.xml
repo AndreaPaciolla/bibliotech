@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6288cd4e-f4f1-443e-8a72-a9c524d6954e" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shared/pages/edit-profile.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/core.php" afterPath="$PROJECT_DIR$/shared/core.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/layout/body.php" afterPath="$PROJECT_DIR$/shared/layout/body.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/layout/engage.php" afterPath="$PROJECT_DIR$/shared/layout/engage.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/utils/database.php" afterPath="$PROJECT_DIR$/shared/utils/database.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,11 +20,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="40" column="1" lean-forward="true" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+            <state relative-caret-position="642">
+              <caret line="42" column="20" lean-forward="false" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -28,28 +33,28 @@
       <file leaf-file-name="engage.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shared/layout/engage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="77" column="59" lean-forward="false" selection-start-line="77" selection-start-column="59" selection-end-line="77" selection-end-column="59" />
+            <state relative-caret-position="2525">
+              <caret line="102" column="116" lean-forward="false" selection-start-line="102" selection-start-column="116" selection-end-line="102" selection-end-column="116" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bibliotech.sql" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bibliotech.sql">
+      <file leaf-file-name="body.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shared/layout/body.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="434" column="24" lean-forward="false" selection-start-line="434" selection-start-column="24" selection-end-line="434" selection-end-column="24" />
+            <state relative-caret-position="-855">
+              <caret line="12" column="52" lean-forward="false" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="configuration.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shared/configuration.php">
+      <file leaf-file-name="edit-profile.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shared/pages/edit-profile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="66" lean-forward="false" selection-start-line="0" selection-start-column="66" selection-end-line="0" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -58,21 +63,25 @@
       <file leaf-file-name="core.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shared/core.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state relative-caret-position="139">
+              <caret line="30" column="82" lean-forward="false" selection-start-line="30" selection-start-column="82" selection-end-line="30" selection-end-column="82" />
               <folding>
-                <marker date="1497641690857" expanded="true" signature="281:301" ph="SELECT * FRO... utente" />
-                <marker date="1497641690857" expanded="true" signature="302:304" ph="select * fro... " />
+                <marker date="1497655615745" expanded="true" signature="355:393" ph="SELECT email... utente" />
+                <marker date="1497655615745" expanded="true" signature="355:408" ph="SELECT email... utente" />
+                <marker date="1497655615745" expanded="true" signature="355:416" ph="SELECT email... utente" />
+                <marker date="1497655615745" expanded="true" signature="701:750" ph="SELECT * FRO... utente" />
+                <marker date="1497655615745" expanded="true" signature="701:751" ph="SELECT email... utente" />
+                <marker date="1497655615745" expanded="true" signature="701:758" ph="SELECT email... utente" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="database.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shared/utils/database.php">
+      <file leaf-file-name="bibliotech.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bibliotech.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="92" lean-forward="false" selection-start-line="1" selection-start-column="92" selection-end-line="1" selection-end-column="92" />
+            <state relative-caret-position="233">
+              <caret line="422" column="23" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="464" selection-end-column="116" />
               <folding />
             </state>
           </provider>
@@ -100,17 +109,18 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/shared/layout/body.php" />
         <option value="$PROJECT_DIR$/pages/signin.html" />
         <option value="$PROJECT_DIR$/shared/layout/header.php" />
         <option value="$PROJECT_DIR$/shared/layout/footer.php" />
         <option value="$PROJECT_DIR$/shared/configuration.php" />
-        <option value="$PROJECT_DIR$/shared/utils/database.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/shared/core.php" />
-        <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/shared/layout/engage.php" />
         <option value="$PROJECT_DIR$/bibliotech.sql" />
+        <option value="$PROJECT_DIR$/shared/utils/database.php" />
+        <option value="$PROJECT_DIR$/shared/layout/body.php" />
+        <option value="$PROJECT_DIR$/shared/pages/edit-profile.php" />
+        <option value="$PROJECT_DIR$/shared/core.php" />
+        <option value="$PROJECT_DIR$/shared/layout/engage.php" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -186,6 +196,24 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bibliotech" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bibliotech" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shared" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -195,6 +223,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -281,12 +310,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1497635871844</updated>
-      <workItem from="1497635873112" duration="4355000" />
+      <workItem from="1497635873112" duration="7361000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4355000" />
+    <option name="totallyTimeSpent" value="7361000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
@@ -300,7 +329,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32924962" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20214395" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -318,24 +347,18 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/shared/layout/body.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1218">
-          <caret line="203" column="6" lean-forward="false" selection-start-line="203" selection-start-column="6" selection-end-line="203" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/bootstrap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -364,14 +387,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shared/configuration.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -380,45 +395,73 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shared/utils/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="92" lean-forward="false" selection-start-line="1" selection-start-column="92" selection-end-line="1" selection-end-column="92" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/core.php">
+    <entry file="file://$PROJECT_DIR$/shared/configuration.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <marker date="1497641690857" expanded="true" signature="281:301" ph="SELECT * FRO... utente" />
-            <marker date="1497641690857" expanded="true" signature="302:304" ph="select * fro... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" column="1" lean-forward="true" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shared/layout/engage.php">
+    <entry file="file://$PROJECT_DIR$/shared/layout/body.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="77" column="59" lean-forward="false" selection-start-line="77" selection-start-column="59" selection-end-line="77" selection-end-column="59" />
+        <state relative-caret-position="-855">
+          <caret line="12" column="52" lean-forward="false" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/pages/edit-profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="66" lean-forward="false" selection-start-line="0" selection-start-column="66" selection-end-line="0" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/utils/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="4" column="186" lean-forward="false" selection-start-line="4" selection-start-column="186" selection-end-line="4" selection-end-column="186" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bibliotech.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="434" column="24" lean-forward="false" selection-start-line="434" selection-start-column="24" selection-end-line="434" selection-end-column="24" />
+        <state relative-caret-position="233">
+          <caret line="422" column="23" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="464" selection-end-column="116" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/core.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="30" column="82" lean-forward="false" selection-start-line="30" selection-start-column="82" selection-end-line="30" selection-end-column="82" />
+          <folding>
+            <marker date="1497655615745" expanded="true" signature="355:393" ph="SELECT email... utente" />
+            <marker date="1497655615745" expanded="true" signature="355:408" ph="SELECT email... utente" />
+            <marker date="1497655615745" expanded="true" signature="355:416" ph="SELECT email... utente" />
+            <marker date="1497655615745" expanded="true" signature="701:750" ph="SELECT * FRO... utente" />
+            <marker date="1497655615745" expanded="true" signature="701:751" ph="SELECT email... utente" />
+            <marker date="1497655615745" expanded="true" signature="701:758" ph="SELECT email... utente" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/layout/engage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2525">
+          <caret line="102" column="116" lean-forward="false" selection-start-line="102" selection-start-column="116" selection-end-line="102" selection-end-column="116" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="642">
+          <caret line="42" column="20" lean-forward="false" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="20" />
           <folding />
         </state>
       </provider>

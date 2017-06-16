@@ -21,20 +21,24 @@
 <?php
 
 // SIGN IN FORM
-if(isset($_POST['form-signin'])) {
-    if(userExists($_POST['email'], $_POST['password'])) {
+if(isset($_POST['login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
+    if(userExists($_POST['email'])) {
         // user exists, do the login
-        makeLogin($_POST['email'], $_POST['password']);
+        if(doLogin($_POST['email'], $_POST['password'])) {
+            header("Location: ./");
+        } else {
+            echo "<script>alert('Password non valida');</script>";
+        }
     } else {
-        echo "<script>alert(L'utente non esiste);</script>";
+        echo "<script>alert('Utente non riconosciuto');</script>";
     }
 }
 
 // SIGN UP FORM
-if(isset($_POST['form-signup'])) {
-    if(userExists($_POST['form-signup'])) {
+if(isset($_POST['form-signup-submit'])) {
+    if(userExists($_POST['email'])) {
         // user exists, do the login
-        echo "<script>alert(L'email esiste.);</script>";
+        echo "<script>alert('L\'email esiste.');</script>";
     } else {
         registerUser($_POST['form-signup']);
     }
