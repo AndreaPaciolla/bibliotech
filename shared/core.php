@@ -1,4 +1,5 @@
 <?php
+@session_start();
 
 require  __DIR__ . DIRECTORY_SEPARATOR . "utils". DIRECTORY_SEPARATOR . "database.php";
 

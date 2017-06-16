@@ -34,7 +34,7 @@
                             </form>
 
                             <!-- Signup form -->
-                            <form id="register-form" method="POST" action="" name="form-signin" style="display:none">
+                            <form id="register-form" method="POST" action="" name="form-signup" style="display:none">
 
                                 <div class="form-group">
                                     <label for="inputEmail" class="sr-only">Email address</label>
