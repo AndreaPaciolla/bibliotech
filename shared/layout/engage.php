@@ -75,12 +75,28 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputSesso" class="sr-only">Sesso?</label>
+                                    <label for="inputSesso">Sesso?</label>
                                     <label class="radio-inline">
                                         <input class="radio-inline" type="radio" name="gender" value="1" checked>Uomo
                                     </label>
                                     <label class="radio-inline">
                                         <input class="radio-inline" type="radio" name="gender" value="2">Donna<br>
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputRuolo">Ruolo</label>
+                                    <label class="radio-inline">
+                                        <input class="radio-inline" type="radio" name="ruolo" value="1" checked>Studente
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input class="radio-inline" type="radio" name="ruolo" value="2">Docente
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input class="radio-inline" type="radio" name="ruolo" value="3">Dipendente
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input class="radio-inline" type="radio" name="ruolo" value="4">Altro
                                     </label>
                                 </div>
 
