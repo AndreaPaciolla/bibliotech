@@ -313,4 +313,26 @@ function getEditorById($id_casa_editrice) {
     }
 }
 
+function getBookById($id_libro) {
+    $query = "SELECT libro.titolo AS titolo, 
+                     libro.isbn AS isbn,
+                     libro.anno_pubblicazione AS anno_pubblicazione,
+                     lingua.nome AS lingua,
+                     casaeditrice.denominazione AS casaeditrice, 
+                     casaeditrice.id AS id_casa_editrice
+              FROM libro, lingua, casaeditrice, autore, autore_libro
+              WHERE libro.id_lingua = lingua.id AND libro.id_casaeditrice=casaeditrice.id AND libro.id=$id_libro";
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return pg_fetch_all($result)[0];
+
+    }
+}
+
 ?>
