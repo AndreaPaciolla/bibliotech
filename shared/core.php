@@ -208,5 +208,65 @@ function evaluatePrestito($idPrestito, $voto, $commento) {
     }
 }
 
+function refreshUserSession() {
+    $currentUserId = $_SESSION['user']['id'];
+
+    $query = "SELECT * FROM utente WHERE id=$currentUserId";
+
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        $_SESSION['user'] = pg_fetch_all($result)[0];
+        return true;
+    }
+}
+
+function editProfile($userData) {
+    //die(print_r($userData));
+    // RETRIEVE CURRENT USER FROM SESSION - WE ARE LOGGED IN
+    $currentUserId=$_SESSION['user']['id'];
+
+    // MAP ALL THE INFORMATION ARRIVING BY USER FORM
+    $nome = $userData['nome'];
+    $cognome = $userData['cognome'];
+    $data_nascita = ($userData['data_nascita']) ? $userData['data_nascita'] : NULL;
+    $id_citta = $userData['id_citta'];
+    $id_citta_nascita = $userData['id_citta_nascita'];
+    $telefono = $userData['telefono'];
+
+    // LET'S PREPARE THE UPDATE USER PROFILE QUERY
+    $query = "UPDATE utente    
+              SET nome='$nome',
+                  cognome='$cognome',
+                  id_citta=$id_citta,
+                  id_citta_nascita=$id_citta_nascita,
+                  telefono=$telefono,
+                  data_nascita='$data_nascita'
+              WHERE utente.id=$currentUserId";
+
+    // A LITTLE BIT OF LOGIC TO DIAL WITH
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        // UPDATE THE SESSION DATA TOO
+        if(refreshUserSession()) {
+            return true;
+        } else {
+          return false;
+        }
+
+    }
+
+}
 
 ?>

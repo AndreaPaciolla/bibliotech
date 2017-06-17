@@ -45,6 +45,20 @@
     </div>
 
     <div class="form-group">
+        <label for="inputDataNascita">Data di nascita</label>
+        <input type="date" value="<?php echo $currentProfile['data_nascita']; ?>" class="form-control" name="data_nascita" required>
+    </div>
+
+    <div class="form-group">
+        <label for="inputCittaResidenza">Citta di nascita</label>
+        <select class="form-control" name="id_citta_nascita" id="inputCittaNascita">
+            <?php foreach($citta as $citt => $c): ?>
+                <option value="<?php echo $c['id']; ?>" <?php echo ($c['id'] == $currentProfile['id_citta_nascita']) ? 'selected' : ''; ?> ><?php echo $c['nome']; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    <div class="form-group">
         <label for="inputSesso">Sesso?</label>
         <label class="radio-inline">
             <input class="radio-inline" type="radio" name="sesso" value="M" <?php echo ($currentProfile['sesso'] == 'M') ? 'checked' : ''; ?>>Uomo
@@ -63,5 +77,18 @@
         <?php } ?>
     </div>
 
-    <button class="form-control btn btn-register" type="submit" name="form-signup-submit">Edit profile</button>
+    <button class="form-control btn btn-register" type="submit" name="form-edit-profile-submit">Edit profile</button>
 </form>
+
+<?php
+
+if(isset($_POST['form-edit-profile-submit'])) {
+    if( editProfile($_POST) ) {
+        echo "<script>alert('Profilo editato');</script>";
+        echo "<script>window.location.href = './';</script>";
+    } else {
+        echo "<script>alert('Errore! Profilo non editato.');</script>";
+    }
+}
+
+?>

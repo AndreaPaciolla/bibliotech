@@ -427,7 +427,7 @@ CREATE TABLE "utente" (
   "email" VARCHAR(255) UNIQUE NOT NULL,
   "tessera" VARCHAR(50) UNIQUE NOT NULL,
   "data_registrazione" DATE NOT NULL,
-  "data_nascita" DATE,
+  "data_nascita" DATE DEFAULT NULL,
   "sesso" VARCHAR(1),
   "password" VARCHAR(255) NOT NULL
 );
