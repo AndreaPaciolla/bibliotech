@@ -37,13 +37,15 @@ INSERT INTO lingua(nome) VALUES('fr');
 
 CREATE TABLE "ruolo" (
   "id" SERIAL PRIMARY KEY,
-  "nome" VARCHAR(255) UNIQUE NOT NULL
+  "nome" VARCHAR(255) UNIQUE NOT NULL,
+  "librimax" SMALLINT NOT NULL,
+  "tempomax" INTEGER NOT NULL
 );
 
-INSERT INTO ruolo(nome) VALUES('studente');
-INSERT INTO ruolo(nome) VALUES('docente');
-INSERT INTO ruolo(nome) VALUES('dipendente');
-INSERT INTO ruolo(nome) VALUES('altro');
+INSERT INTO ruolo(nome, librimax, tempomax) VALUES('studente', 5, 60);
+INSERT INTO ruolo(nome, librimax, tempomax VALUES('docente', 10, 90);
+INSERT INTO ruolo(nome, librimax, tempomax VALUES('dipendente', 0, 0);
+INSERT INTO ruolo(nome, librimax, tempomax VALUES('altro', 3, 14);
 
 CREATE TABLE "stato" (
   "id" SERIAL PRIMARY KEY,
