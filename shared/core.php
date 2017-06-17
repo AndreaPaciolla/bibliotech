@@ -21,7 +21,16 @@ function getCities() {
 
 function getBookCopies() {
     if( $db = dbConnect()) {
-        $query = "SELECT copia.id AS id_copia, copia.scaffale AS copia_scaffale, copia.sezione AS copia_sezione, libro.id AS id_libro, libro.titolo AS titolo_libro, libro.isbn AS isbn, autore.nome AS nome_autore, autore.cognome AS cognome_autore, casaeditrice.denominazione AS casaeditrice
+        $query = "SELECT copia.id AS id_copia, 
+                         copia.scaffale AS copia_scaffale, 
+                         copia.sezione AS copia_sezione, 
+                         libro.id AS id_libro, 
+                         libro.titolo AS titolo_libro, 
+                         libro.isbn AS isbn, 
+                         autore.nome AS nome_autore, 
+                         autore.cognome AS cognome_autore, 
+                         autore.id AS id_autore,
+                         casaeditrice.denominazione AS casaeditrice
                   FROM libro, autore, autore_libro, copia, casaeditrice 
                   WHERE copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND libro.id = autore_libro.id_libro AND autore_libro.id_autore = autore.id AND copia.disponibile = TRUE";
         $result = pg_query($db, $query);
@@ -264,6 +273,24 @@ function editProfile($userData) {
         } else {
           return false;
         }
+
+    }
+
+}
+
+
+function getAuthorById($id_autore) {
+    $query = "SELECT * FROM autore WHERE autore.id = $id_autore";
+
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return pg_fetch_all($result)[0];
 
     }
 

@@ -13,7 +13,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="./">Bibliotech</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -37,6 +37,7 @@
                         case 'doLogout': doLogout(); break;
                         case 'richiediPrestito': doPrestito(); break;
                         case 'terminaPrestito': endPrestito(); break;
+                        case 'viewAuthor': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "view-author.php"; break;
                         case 'valutaPrestito': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "evaluate-prestito.php"; break;
                         case 'editProfile': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "edit-profile.php"; break;
                         default: include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "dashboard.php";
