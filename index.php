@@ -40,7 +40,7 @@ if(isset($_POST['form-signup-submit'])) {
         // user exists, do the login
         echo "<script>alert('L\'email esiste.');</script>";
     } else {
-        registerUser($_POST['form-signup']);
+        registerUser($_POST);
     }
 }
 

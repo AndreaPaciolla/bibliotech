@@ -1,3 +1,5 @@
+<?php $ruoli = getRuoli(); ?>
+<?php $citta = getCities(); ?>
 <div class="container">
 
     <div class="row">
@@ -38,12 +40,17 @@
 
                                 <div class="form-group">
                                     <label for="inputEmail" class="sr-only">Email address</label>
-                                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                                    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword" class="sr-only">Nome</label>
-                                    <input type="text" name="password" id="inputPassword" class="form-control" placeholder="Nome" required>
+                                    <label for="inputPassword" class="sr-only">Password</label>
+                                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputNome" class="sr-only">Nome</label>
+                                    <input type="text" name="nome" id="inputNome" class="form-control" placeholder="Nome" required>
                                 </div>
 
                                 <div class="form-group">
@@ -62,42 +69,31 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputDataNascita" class="sr-only">Data di nascita</label>
-                                    <input type="date" name="data_nascita" id="inputDataNascita" class="form-control" placeholder="Data di nascita" required>
-                                </div>
-
-                                <div class="form-group">
                                     <label for="inputCittaResidenza" class="sr-only">Citta di residenza</label>
-                                    <select class="form-control" name="citta_residenza" id="inputCittaResidenza">
-                                        <option value="1">Bari</option>
-                                        <option value="2">Milano</option>
+                                    <select class="form-control" name="id_citta" id="inputCittaResidenza">
+                                        <?php foreach($citta as $citt => $c): ?>
+                                            <option value="<?php echo $c['id']; ?>"><?php echo $c['nome']; ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
 
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label for="inputSesso">Sesso?</label>
                                     <label class="radio-inline">
-                                        <input class="radio-inline" type="radio" name="gender" value="1" checked>Uomo
+                                        <input class="radio-inline" type="radio" name="sesso" value="M" checked>Uomo
                                     </label>
                                     <label class="radio-inline">
-                                        <input class="radio-inline" type="radio" name="gender" value="2">Donna<br>
+                                        <input class="radio-inline" type="radio" name="sesso" value="F">Donna<br>
                                     </label>
-                                </div>
+                                </div>-->
 
                                 <div class="form-group">
                                     <label for="inputRuolo">Ruolo</label>
-                                    <label class="radio-inline">
-                                        <input class="radio-inline" type="radio" name="ruolo" value="1" checked>Studente
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input class="radio-inline" type="radio" name="ruolo" value="2">Docente
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input class="radio-inline" type="radio" name="ruolo" value="3">Dipendente
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input class="radio-inline" type="radio" name="ruolo" value="4">Altro
-                                    </label>
+                                    <?php foreach($ruoli as $ruolo => $value) { ?>
+                                        <label class="radio-inline">
+                                            <input class="radio-inline" type="radio" name="ruolo" value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?>
+                                        </label>
+                                    <?php } ?>
                                 </div>
 
                                 <button class="form-control btn btn-register" type="submit" name="form-signup-submit">Register</button>
