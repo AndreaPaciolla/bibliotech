@@ -88,7 +88,7 @@
                     <td><?php echo $prestito['data_fine']; ?></td>
                     <td>
                         <?php if($prestito['voto_prestito'] == NULL): ?><a href="?action=valutaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button>Valuta</button></a><?php endif; ?>
-                        <?php if($prestito['voto_prestito'] !== NULL): ?> <?php echo $prestito['voto_prestito'] . '/5 - <b>Commento</b>'. $prestito['commento_prestito']; ?> <?php endif; ?>
+                        <?php if($prestito['voto_prestito'] !== NULL): ?> <?php echo $prestito['voto_prestito'] . '/5 - <b>Commento: </b>'. $prestito['commento_prestito']; ?> <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

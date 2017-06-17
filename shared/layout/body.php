@@ -38,6 +38,7 @@
                         case 'richiediPrestito': doPrestito(); break;
                         case 'terminaPrestito': endPrestito(); break;
                         case 'valutaPrestito': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "evaluate-prestito.php"; break;
+                        case 'editProfile': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "edit-profile.php"; break;
                         default: include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "dashboard.php";
                     }
                 } else {

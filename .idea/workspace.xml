@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6288cd4e-f4f1-443e-8a72-a9c524d6954e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shared/pages/dashboard.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shared/pages/evaluate-prestito.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/core.php" afterPath="$PROJECT_DIR$/shared/core.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/layout/body.php" afterPath="$PROJECT_DIR$/shared/layout/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/pages/dashboard.php" afterPath="$PROJECT_DIR$/shared/pages/dashboard.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/pages/edit-profile.php" afterPath="$PROJECT_DIR$/shared/pages/edit-profile.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +20,8 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="845">
-              <caret line="48" column="1" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="48" selection-end-column="1" />
+            <state relative-caret-position="1287">
+              <caret line="39" column="17" lean-forward="false" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -31,8 +30,8 @@
       <file leaf-file-name="body.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shared/layout/body.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="636">
-              <caret line="39" column="50" lean-forward="false" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
+            <state relative-caret-position="880">
+              <caret line="40" column="41" lean-forward="false" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -41,19 +40,23 @@
       <file leaf-file-name="dashboard.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shared/pages/dashboard.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="755">
-              <caret line="90" column="57" lean-forward="false" selection-start-line="90" selection-start-column="57" selection-end-line="90" selection-end-column="57" />
+            <state relative-caret-position="551">
+              <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit-profile.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="edit-profile.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shared/pages/edit-profile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="66" lean-forward="false" selection-start-line="0" selection-start-column="66" selection-end-line="0" selection-end-column="66" />
-              <folding />
+            <state relative-caret-position="706">
+              <caret line="60" column="76" lean-forward="false" selection-start-line="60" selection-start-column="76" selection-end-line="60" selection-end-column="76" />
+              <folding>
+                <marker date="1497710960454" expanded="true" signature="2552:2644" ph="..." />
+                <marker date="1497710960454" expanded="true" signature="2762:3087" ph="..." />
+                <marker date="1497710960454" expanded="true" signature="2904:3087" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -61,18 +64,18 @@
       <file leaf-file-name="engage.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shared/layout/engage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="708">
-              <caret line="93" column="60" lean-forward="false" selection-start-line="93" selection-start-column="60" selection-end-line="93" selection-end-column="60" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="core.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="core.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shared/core.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="197" column="75" lean-forward="false" selection-start-line="197" selection-start-column="75" selection-end-line="197" selection-end-column="75" />
+            <state relative-caret-position="3135">
+              <caret line="195" column="0" lean-forward="true" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
               <folding>
                 <marker date="1497709937984" expanded="true" signature="265:284" ph="SELECT * FRO... citta" />
                 <marker date="1497709937984" expanded="true" signature="504:1018" ph="SELECT copia... libro" />
@@ -185,15 +188,15 @@
         <option value="$PROJECT_DIR$/shared/configuration.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/shared/utils/database.php" />
-        <option value="$PROJECT_DIR$/shared/pages/edit-profile.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/shared/layout/engage.php" />
         <option value="$PROJECT_DIR$/shared/pages/richiedi-prestito.php" />
         <option value="$PROJECT_DIR$/bibliotech.sql" />
-        <option value="$PROJECT_DIR$/shared/layout/body.php" />
-        <option value="$PROJECT_DIR$/shared/pages/dashboard.php" />
         <option value="$PROJECT_DIR$/shared/pages/evaluate-prestito.php" />
         <option value="$PROJECT_DIR$/shared/core.php" />
+        <option value="$PROJECT_DIR$/shared/pages/dashboard.php" />
+        <option value="$PROJECT_DIR$/shared/layout/body.php" />
+        <option value="$PROJECT_DIR$/shared/pages/edit-profile.php" />
       </list>
     </option>
   </component>
@@ -266,6 +269,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bibliotech" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bibliotech" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shared" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -366,12 +387,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1497635871844</updated>
-      <workItem from="1497635873112" duration="27795000" />
+      <workItem from="1497635873112" duration="28812000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27795000" />
+    <option name="totallyTimeSpent" value="28812000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
@@ -483,46 +504,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shared/layout/engage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="708">
-          <caret line="93" column="60" lean-forward="false" selection-start-line="93" selection-start-column="60" selection-end-line="93" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/pages/edit-profile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="66" lean-forward="false" selection-start-line="0" selection-start-column="66" selection-end-line="0" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/layout/body.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="39" column="50" lean-forward="false" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="845">
-          <caret line="48" column="1" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="48" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/pages/dashboard.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="755">
-          <caret line="90" column="57" lean-forward="false" selection-start-line="90" selection-start-column="57" selection-end-line="90" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shared/pages/evaluate-prestito.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -531,10 +512,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/shared/pages/dashboard.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/layout/body.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="880">
+          <caret line="40" column="41" lean-forward="false" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1287">
+          <caret line="39" column="17" lean-forward="false" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/layout/engage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/shared/core.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="197" column="75" lean-forward="false" selection-start-line="197" selection-start-column="75" selection-end-line="197" selection-end-column="75" />
+        <state relative-caret-position="3135">
+          <caret line="195" column="0" lean-forward="true" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
           <folding>
             <marker date="1497709937984" expanded="true" signature="265:284" ph="SELECT * FRO... citta" />
             <marker date="1497709937984" expanded="true" signature="504:1018" ph="SELECT copia... libro" />
@@ -578,6 +591,18 @@
             <marker date="1497709937984" expanded="true" signature="7172:7199" ph="UPDATE prest... " />
             <marker date="1497709937984" expanded="true" signature="7172:7226" ph="UPDATE prest... " />
             <marker date="1497709937984" expanded="true" signature="7172:7236" ph="UPDATE prest... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/pages/edit-profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="706">
+          <caret line="60" column="76" lean-forward="false" selection-start-line="60" selection-start-column="76" selection-end-line="60" selection-end-column="76" />
+          <folding>
+            <marker date="1497710960454" expanded="true" signature="2552:2644" ph="..." />
+            <marker date="1497710960454" expanded="true" signature="2762:3087" ph="..." />
+            <marker date="1497710960454" expanded="true" signature="2904:3087" ph="..." />
           </folding>
         </state>
       </provider>
