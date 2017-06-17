@@ -30,7 +30,8 @@ function getBookCopies() {
                          autore.nome AS nome_autore, 
                          autore.cognome AS cognome_autore, 
                          autore.id AS id_autore,
-                         casaeditrice.denominazione AS casaeditrice
+                         casaeditrice.denominazione AS casaeditrice,
+                         casaeditrice.id AS id_casa_editrice
                   FROM libro, autore, autore_libro, copia, casaeditrice 
                   WHERE copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND libro.id = autore_libro.id_libro AND autore_libro.id_autore = autore.id AND copia.disponibile = TRUE";
         $result = pg_query($db, $query);
@@ -294,6 +295,22 @@ function getAuthorById($id_autore) {
 
     }
 
+}
+
+function getEditorById($id_casa_editrice) {
+    $query = "SELECT * FROM casaeditrice WHERE casaeditrice.id = $id_casa_editrice";
+
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return pg_fetch_all($result)[0];
+
+    }
 }
 
 ?>

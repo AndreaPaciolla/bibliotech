@@ -19,7 +19,7 @@
                 <td><?php echo $book['isbn']; ?></td>
                 <td><?php echo $book['titolo_libro']; ?></td>
                 <td><a href="?action=viewAuthor&id_autore=<?php echo $book['id_autore']; ?>"> <?php echo $book['nome_autore'] . ' ' . $book['cognome_autore']; ?></a></td>
-                <td><?php echo $book['casaeditrice']; ?></td>
+                <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $book['id_casa_editrice']; ?>"><?php echo $book['casaeditrice']; ?></a></td>
                 <td><?php echo $book['copia_sezione'].'/'.$book['copia_scaffale'].'.'.$book['id_copia']; ?></td>
                 <td><a href="?action=richiediPrestito&id_copia=<?php echo $book['id_copia']; ?>"><button>Richiedi prestito</button></a></td>
             </tr>
