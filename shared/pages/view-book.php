@@ -1,4 +1,5 @@
 <?php $book = getBookById($_GET['id_libro']); ?>
+<?php $authors = getAuthorsByBookId($_GET['id_libro']); ?>
 <?php $citta = getCities(); ?>
 
 <h2 class="sub-header">Libro: <?php echo $book['titolo']; ?></h2>
@@ -27,7 +28,11 @@
         </tr>
         <tr>
             <td>Autori</td>
-            <td><?php echo $book['isbn']; ?></td>
+            <td>
+                <?php foreach($authors as $autore): ?>
+                    <a href="?action=viewAuthor&id_autore=<?php echo $autore['id_autore']; ?>"><?php echo $autore['nome'] . ' ' . $autore['cognome']; ?></a>,
+                <?php endforeach; ?>
+            </td>
         </tr>
     </tbody>
 </table>

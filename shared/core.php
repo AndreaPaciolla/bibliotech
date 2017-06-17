@@ -335,4 +335,25 @@ function getBookById($id_libro) {
     }
 }
 
+function getAuthorsByBookId($id_libro) {
+    $query = "SELECT autore.nome AS nome, 
+                     autore.cognome AS cognome, 
+                     autore.id AS id_autore 
+              FROM autore, autore_libro
+              WHERE autore.id=autore_libro.id_autore AND autore_libro.id_libro=$id_libro";
+
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return pg_fetch_all($result);
+
+    }
+
+}
+
 ?>
