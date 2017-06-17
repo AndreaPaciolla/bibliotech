@@ -40,7 +40,11 @@ if(isset($_POST['form-signup-submit'])) {
         // user exists, do the login
         echo "<script>alert('L\'email esiste.');</script>";
     } else {
-        registerUser($_POST);
+        if(registerUser($_POST)) {
+            header("Location: ./");
+        } else {
+            echo "<script>alert('Errore durante la registrazione');</script>";
+        }
     }
 }
 

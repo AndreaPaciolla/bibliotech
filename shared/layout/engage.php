@@ -91,7 +91,7 @@
                                     <label for="inputRuolo">Ruolo</label>
                                     <?php foreach($ruoli as $ruolo => $value) { ?>
                                         <label class="radio-inline">
-                                            <input class="radio-inline" type="radio" name="ruolo" value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?>
+                                            <input required class="radio-inline" type="radio" name="ruolo" value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?>
                                         </label>
                                     <?php } ?>
                                 </div>

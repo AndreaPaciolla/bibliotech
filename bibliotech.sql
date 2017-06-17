@@ -400,6 +400,7 @@ ALTER TABLE "autore_libro" ADD CONSTRAINT "fk_autore_libro__libro" FOREIGN KEY (
 CREATE TABLE "copia" (
   "id" SERIAL PRIMARY KEY,
   "id_libro" INTEGER NOT NULL,
+  "disponibile" BOOLEAN NOT NULL DEFAULT TRUE,
   "sezione" VARCHAR(20) NOT NULL,
   "scaffale" VARCHAR(20) NOT NULL
 );
@@ -418,7 +419,7 @@ ALTER TABLE "copia" ADD CONSTRAINT "fk_copia__id_libro" FOREIGN KEY ("id_libro")
 CREATE TABLE "utente" (
   "id" SERIAL PRIMARY KEY,
   "id_ruolo" INTEGER NOT NULL,
-  "id_citta_nascita" INTEGER NOT NULL,
+  "id_citta_nascita" INTEGER,
   "id_citta" INTEGER NOT NULL,
   "nome" TEXT NOT NULL,
   "cognome" VARCHAR(255) NOT NULL,
@@ -427,7 +428,7 @@ CREATE TABLE "utente" (
   "tessera" VARCHAR(50) UNIQUE NOT NULL,
   "data_registrazione" DATE NOT NULL,
   "data_nascita" DATE,
-  "sesso" VARCHAR(1) NOT NULL,
+  "sesso" VARCHAR(1),
   "password" VARCHAR(255) NOT NULL
 );
 
@@ -453,7 +454,7 @@ CREATE TABLE "prestito" (
   "data_inizio" DATE NOT NULL,
   "data_fine" DATE,
   "voto" SMALLINT,
-  "commento" TEXT NOT NULL
+  "commento" TEXT
 );
 
 CREATE INDEX "idx_prestito__id_copia" ON "prestito" ("id_copia");

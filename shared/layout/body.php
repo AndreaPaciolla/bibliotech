@@ -1,4 +1,10 @@
 
+<?php $bookCopies = getBookCopies(); ?>
+<?php $prestitiAttuali = getPrestiti(true, $_SESSION['user']['id']); ?>
+<?php $prestitiPassati = getPrestiti(false, $_SESSION['user']['id']); ?>
+
+
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -24,180 +30,107 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="#">Analytics</a></li>
-                <li><a href="#">Export</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Nav item</a></li>
-                <li><a href="">Nav item again</a></li>
-                <li><a href="">One more nav</a></li>
-                <li><a href="">Another nav item</a></li>
-                <li><a href="">More navigation</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Nav item again</a></li>
-                <li><a href="">One more nav</a></li>
-                <li><a href="">Another nav item</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Dashboard</h1>
+        <div class="col-md-10 col-md-offset-1 main">
+            <!--<h1 class="page-header">Dashboard</h1>-->
 
-            <div class="row placeholders">
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
-                </div>
-            </div>
-
-            <h2 class="sub-header">Section title</h2>
+            <h2 class="sub-header">Copie volumi presenti in biblioteca</h2>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
+                        <th>ISBN</th>
+                        <th>Titolo</th>
+                        <th>Autore</th>
+                        <th>Casa editrice</th>
+                        <th>Posizione</th>
+                        <th>Azioni</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    <tr>
-                        <td>1,002</td>
-                        <td>amet</td>
-                        <td>consectetur</td>
-                        <td>adipiscing</td>
-                        <td>elit</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>Integer</td>
-                        <td>nec</td>
-                        <td>odio</td>
-                        <td>Praesent</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>libero</td>
-                        <td>Sed</td>
-                        <td>cursus</td>
-                        <td>ante</td>
-                    </tr>
-                    <tr>
-                        <td>1,004</td>
-                        <td>dapibus</td>
-                        <td>diam</td>
-                        <td>Sed</td>
-                        <td>nisi</td>
-                    </tr>
-                    <tr>
-                        <td>1,005</td>
-                        <td>Nulla</td>
-                        <td>quis</td>
-                        <td>sem</td>
-                        <td>at</td>
-                    </tr>
-                    <tr>
-                        <td>1,006</td>
-                        <td>nibh</td>
-                        <td>elementum</td>
-                        <td>imperdiet</td>
-                        <td>Duis</td>
-                    </tr>
-                    <tr>
-                        <td>1,007</td>
-                        <td>sagittis</td>
-                        <td>ipsum</td>
-                        <td>Praesent</td>
-                        <td>mauris</td>
-                    </tr>
-                    <tr>
-                        <td>1,008</td>
-                        <td>Fusce</td>
-                        <td>nec</td>
-                        <td>tellus</td>
-                        <td>sed</td>
-                    </tr>
-                    <tr>
-                        <td>1,009</td>
-                        <td>augue</td>
-                        <td>semper</td>
-                        <td>porta</td>
-                        <td>Mauris</td>
-                    </tr>
-                    <tr>
-                        <td>1,010</td>
-                        <td>massa</td>
-                        <td>Vestibulum</td>
-                        <td>lacinia</td>
-                        <td>arcu</td>
-                    </tr>
-                    <tr>
-                        <td>1,011</td>
-                        <td>eget</td>
-                        <td>nulla</td>
-                        <td>Class</td>
-                        <td>aptent</td>
-                    </tr>
-                    <tr>
-                        <td>1,012</td>
-                        <td>taciti</td>
-                        <td>sociosqu</td>
-                        <td>ad</td>
-                        <td>litora</td>
-                    </tr>
-                    <tr>
-                        <td>1,013</td>
-                        <td>torquent</td>
-                        <td>per</td>
-                        <td>conubia</td>
-                        <td>nostra</td>
-                    </tr>
-                    <tr>
-                        <td>1,014</td>
-                        <td>per</td>
-                        <td>inceptos</td>
-                        <td>himenaeos</td>
-                        <td>Curabitur</td>
-                    </tr>
-                    <tr>
-                        <td>1,015</td>
-                        <td>sodales</td>
-                        <td>ligula</td>
-                        <td>in</td>
-                        <td>libero</td>
-                    </tr>
+                    <?php foreach($bookCopies as $book): ?>
+                        <tr>
+                            <td><?php echo $book['id_copia']; ?></td>
+                            <td><?php echo $book['isbn']; ?></td>
+                            <td><?php echo $book['titolo_libro']; ?></td>
+                            <td><?php echo $book['nome_autore'] . ' ' . $book['cognome_autore']; ?></td>
+                            <td><?php echo $book['casaeditrice']; ?></td>
+                            <td><?php echo $book['copia_sezione'].'/'.$book['copia_scaffale'].'.'.$book['id_copia']; ?></td>
+                            <td><a href="?action=richiediPrestito&id_copia=<?php echo $book['id_copia']; ?>"><button>Richiedi prestito</button></a></td>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
+
+            <h2 class="sub-header">Prestiti attuali</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ISBN</th>
+                        <th>Titolo</th>
+                        <th>Autore</th>
+                        <th>Casa editrice</th>
+                        <th>Posizione</th>
+                        <th>Azioni</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if(is_array($prestitiAttuali) || is_object($prestitiAttuali)): ?>
+                        <?php foreach($prestitiAttuali as $prestito): ?>
+                            <tr>
+                                <td><?php echo $prestito['isbn']; ?></td>
+                                <td><?php echo $prestito['titolo_libro']; ?></td>
+                                <td><?php echo $prestito['nome_autore'] . ' ' . $prestito['cognome_autore']; ?></td>
+                                <td><?php echo $prestito['casaeditrice']; ?></td>
+                                <td><a href="?action=terminaPrestito"><button>Termina prestito</button></a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="7">Nessun prestito attivo</td>
+                        </tr>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="sub-header">Prestiti passati</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ISBN</th>
+                        <th>Titolo</th>
+                        <th>Autore</th>
+                        <th>Casa editrice</th>
+                        <th>Posizione</th>
+                        <th>Azioni</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if(is_array($prestitiPassati) || is_object($prestitiPassati)): ?>
+                        <?php foreach($prestitiPassati as $prestito): ?>
+                            <tr>
+                                <td><?php echo $prestito['isbn']; ?></td>
+                                <td><?php echo $prestito['titolo_libro']; ?></td>
+                                <td><?php echo $prestito['nome_autore'] . ' ' . $prestito['cognome_autore']; ?></td>
+                                <td><?php echo $prestito['casaeditrice']; ?></td>
+                                <td><a href="?action=valutaPrestito"><button>Valuta prestito</button></a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="7">Nessun prestito passato</td>
+                        </tr>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 </div>

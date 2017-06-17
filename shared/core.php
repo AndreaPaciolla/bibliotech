@@ -19,6 +19,45 @@ function getCities() {
     }
 }
 
+function getBookCopies() {
+    if( $db = dbConnect()) {
+        $query = "SELECT copia.id AS id_copia, copia.scaffale AS copia_scaffale, copia.sezione AS copia_sezione, libro.id AS id_libro, libro.titolo AS titolo_libro, libro.isbn AS isbn, autore.nome AS nome_autore, autore.cognome AS cognome_autore, casaeditrice.denominazione AS casaeditrice
+                  FROM libro, autore, autore_libro, copia, casaeditrice 
+                  WHERE copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND libro.id = autore_libro.id_libro AND autore_libro.id_autore = autore.id AND copia.disponibile = TRUE";
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            exit;
+        }
+
+        return pg_fetch_all($result);
+    }
+}
+
+function getPrestiti($attuali=false, $idUtente) {
+    if( $db = dbConnect() ) {
+
+        if($attuali) {
+            $query = "SELECT libro.titolo AS titolo_libro, libro.isbn AS isbn, autore.nome AS nome_autore, autore.cognome AS cognome_autore, casaeditrice.denominazione AS casaeditrice
+                  FROM libro, autore, autore_libro, copia, casaeditrice, prestito
+                  WHERE prestito.id_copia = copia.id AND copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND libro.id = autore_libro.id_libro AND autore_libro.id_autore = autore.id AND prestito.id_utente = $idUtente AND data_inizio IS NOT NULL AND data_fine IS NULL;";
+        } else {
+            $query = "SELECT libro.titolo AS titolo_libro, libro.isbn AS isbn, autore.nome AS nome_autore, autore.cognome AS cognome_autore, casaeditrice.denominazione AS casaeditrice
+                  FROM libro, autore, autore_libro, copia, casaeditrice, prestito
+                  WHERE prestito.id_copia = copia.id AND copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND libro.id = autore_libro.id_libro AND autore_libro.id_autore = autore.id AND prestito.id_utente = $idUtente AND data_inizio IS NOT NULL AND data_fine IS NOT NULL;";
+        }
+
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            exit;
+        }
+        //die(empty(pg_fetch_all($result)));
+        return pg_fetch_all($result);
+    }
+
+}
+
 // FUNCTION THAT RETURNS ALL THE ROLES
 function getRuoli() {
     if( $db = dbConnect()) {
@@ -44,14 +83,19 @@ function userExists($userEmail) {
 }
 
 function doLogin($userEmail, $userPwd) {
+    $userPwd = md5($userPwd);
     if( $db = dbConnect()) {
-        $result = pg_query($db, "SELECT * FROM utente WHERE email='".$userEmail."' LIMIT 1;");
+        $result = pg_query($db, "SELECT * FROM utente WHERE email='$userEmail' AND password='$userPwd'");
         if (!$result) {
             echo "An error occurred.\n";
             exit;
         }
 
-        $_SESSION['user'] = pg_fetch_array($result, 0, PGSQL_ASSOC);
+        $rows = pg_fetch_all($result);
+        if(is_array($rows) || is_object($rows)) {
+            $_SESSION['user'] = $rows[0];
+        }
+
         return $_SESSION['user'] !== NULL;
     }
 }
@@ -65,19 +109,24 @@ function registerUser($formData) {
     $email = $formData['email'];
     $tessera = $formData['tessera'];
     $id_citta = $formData['id_citta'];
-    $password = $formData['password'];
+    $password = md5(trim($formData['password']));
+    $current_date = date('Y-m-d');
 
+    //die(print_r($formData));
     if( $db = dbConnect() ) {
-        $result = pg_query($db, "INSERT INTO utente(id_ruolo, nome, cognome, telefono, email, tessera, data_registrazione, id_citta, password) VALUES('$ruolo', '$nome', '$cognome', '$telefono', '$email', '$tessera', current_date(), '$id_citta', '$password')");
+        pg_connection_reset($db);
+        $db = dbConnect();
+        $result = pg_query($db, "INSERT INTO utente(id_ruolo, nome, cognome, telefono, email, tessera, data_registrazione, id_citta, password) 
+                                       VALUES($ruolo, '$nome', '$cognome', '$telefono', '$email', '$tessera', '$current_date', $id_citta, '$password');");
         if (!$result) {
-            echo "An error occurred.\n";
+            echo "An error occurred.\n" . pg_last_error($db);
+            return false;
             exit;
         }
 
-        $_SESSION['user'] = pg_fetch_array($result, 0, PGSQL_ASSOC);
-        return $_SESSION['user'] !== NULL;
+        doLogin($email, $password);
+        return true;
     }
-    die($formData);
 }
 
 function doLogout() {
@@ -85,10 +134,41 @@ function doLogout() {
     Header('Location: ./');
 }
 
+function doPrestito() {
+    // get form data correctly
+    $id_copia = trim($_GET['id_copia']);
+    $data_inizio = date('Y-m-d');
+    $id_utente = $_SESSION['user']['id'];
+
+    // Controllo se ci sono copie disponibili di questo libro
+    $queryRegistraPrestito = "INSERT INTO prestito(id_utente, id_copia, data_inizio) VALUES($id_utente, $id_copia, '$data_inizio')";
+    $queryStornaGiacenza = "UPDATE copia SET disponibile=FALSE WHERE copia.id = $id_copia";
+
+    if( $db = dbConnect() ) {
+        $result = pg_query($db, $queryRegistraPrestito);
+        if (!$result) {
+            echo "An error occurred.\n" . pg_last_error($db);
+            return false;
+            exit;
+        }
+
+        $result = pg_query($db, $queryStornaGiacenza);
+        if (!$result) {
+            echo "An error occurred.\n" . pg_last_error($db);
+            return false;
+            exit;
+        }
+
+        echo "<script>alert('Prestito effettuato');</script>";
+        return true;
+    }
+}
+
 // Event handlers
 if(isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'doLogout': doLogout(); break;
+        case 'richiediPrestito': doPrestito(); break;
         default: exit;
     }
 }
