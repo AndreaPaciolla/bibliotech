@@ -356,4 +356,46 @@ function getAuthorsByBookId($id_libro) {
 
 }
 
+function getCopyById($id_copia) {
+    $query = "SELECT libro.titolo AS titolo, 
+                     libro.id AS id_libro,
+                     libro.isbn AS isbn
+              FROM copia, libro
+              WHERE copia.id=$id_copia AND copia.id_libro=libro.id";
+
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return pg_fetch_all($result)[0];
+
+    }
+}
+
+function getRatesByCopyId($id_copia) {
+    $query = "SELECT prestito.voto AS voto,
+                     prestito.commento AS commento,
+                     utente.nome AS nome_utente,
+                     utente.cognome AS cognome_utente
+              FROM prestito, utente
+              WHERE prestito.id_copia=$id_copia AND prestito.id_utente=utente.id AND prestito.data_fine IS NOT NULL";
+
+    if( $db = dbConnect() ) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        //die(print_r(pg_fetch_all($result)));
+        return pg_fetch_all($result);
+
+    }
+}
+
 ?>

@@ -15,13 +15,13 @@
         <tbody>
         <?php foreach($bookCopies as $book): ?>
             <tr>
-                <td><?php echo $book['id_copia']; ?></td>
+                <td><a href="?action=viewCopy&id_copia=<?php echo $book['id_copia']; ?>"><?php echo $book['id_copia']; ?></a></td>
                 <td><?php echo $book['isbn']; ?></td>
                 <td><a href="?action=viewBook&id_libro=<?php echo $book['id_libro']; ?>"> <?php echo $book['titolo_libro']; ?></a></td>
                 <td><a href="?action=viewAuthor&id_autore=<?php echo $book['id_autore']; ?>"> <?php echo $book['nome_autore'] . ' ' . $book['cognome_autore']; ?></a></td>
                 <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $book['id_casa_editrice']; ?>"><?php echo $book['casaeditrice']; ?></a></td>
                 <td><?php echo $book['copia_sezione'].'/'.$book['copia_scaffale'].'.'.$book['id_copia']; ?></td>
-                <td><a href="?action=richiediPrestito&id_copia=<?php echo $book['id_copia']; ?>"><button>Richiedi prestito</button></a></td>
+                <td><a href="?action=richiediPrestito&id_copia=<?php echo $book['id_copia']; ?>"><button class="btn btn-primary btn-sm">Richiedi prestito</button></a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -52,7 +52,7 @@
                     <td><?php echo $prestito['nome_autore'] . ' ' . $prestito['cognome_autore']; ?></td>
                     <td><?php echo $prestito['casaeditrice']; ?></td>
                     <td><?php echo $prestito['data_inizio']; ?></td>
-                    <td><a href="?action=terminaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button>Termina prestito</button></a></td>
+                    <td><a href="?action=terminaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Termina prestito</button></a></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -87,7 +87,7 @@
                     <td><?php echo $prestito['data_inizio']; ?></td>
                     <td><?php echo $prestito['data_fine']; ?></td>
                     <td>
-                        <?php if($prestito['voto_prestito'] == NULL): ?><a href="?action=valutaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button>Valuta</button></a><?php endif; ?>
+                        <?php if($prestito['voto_prestito'] == NULL): ?><a href="?action=valutaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Valuta</button></a><?php endif; ?>
                         <?php if($prestito['voto_prestito'] !== NULL): ?> <?php echo $prestito['voto_prestito'] . '/5 - <b>Commento: </b>'. $prestito['commento_prestito']; ?> <?php endif; ?>
                     </td>
                 </tr>
