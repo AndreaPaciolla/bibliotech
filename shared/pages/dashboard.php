@@ -1,4 +1,42 @@
 <?php $role = getRoleByUserId($_SESSION['user']['id']); ?>
+<?php $libri = getBooks(); ?>
+
+<!-- Libri nel catalogo -->
+<h2 class="sub-header">Libri nel catalogo della biblioteca</h2>
+<div class="table-responsive">
+    <table class="table table-striped orderable">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>ISBN</th>
+            <th>Titolo</th>
+            <th>Edizione</th>
+            <th>Casa editrice</th>
+            <th>Azioni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php if(is_array($libri) || is_object($libri)): ?>
+            <?php foreach($libri as $libro): ?>
+                <tr>
+                    <td><a href="?action=viewBook&id_libro=<?php echo $libro['id_libro']; ?>"><?php echo $libro['id_libro']; ?></a></td>
+                    <td><?php echo $libro['isbn']; ?></td>
+                    <td><a href="?action=viewBook&id_libro=<?php echo $libro['id_libro']; ?>"> <?php echo $libro['titolo']; ?></a></td>
+                    <td><?php echo $libro['edizione']; ?></td>
+                    <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $libro['id_casa_editrice']; ?>"><?php echo $libro['casaeditrice']; ?></a></td>
+                    <td><a href="?action=editBook&id_libro=<?php echo $libro['id_libro']; ?>"><button class="btn btn-primary btn-sm">Edita</button></a></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="6">Nessun libro disponibile nel catalogo della biblioteca</td>
+            </tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+    <a href="?action=addBook"><button class="btn btn-primary btn-sm">Aggiungi nuovo libro</button></a>
+    <a href="?action=addAuthor"><button class="btn btn-primary btn-sm">Aggiungi nuovo autore</button></a>
+</div> <!-- ./ fine libri nel catalogo -->
 
 <h2 class="sub-header">Copie volumi presenti in biblioteca</h2>
 <div class="table-responsive">
@@ -22,7 +60,12 @@
                     <td><a href="?action=viewCopy&id_copia=<?php echo $book['id_copia']; ?>"><?php echo $book['id_copia']; ?></a></td>
                     <td><?php echo $book['isbn']; ?></td>
                     <td><a href="?action=viewBook&id_libro=<?php echo $book['id_libro']; ?>"> <?php echo $book['titolo_libro']; ?></a></td>
-                    <td><a href="?action=viewAuthor&id_autore=<?php echo $book['id_autore']; ?>"> <?php echo $book['nome_autore'] . ' ' . $book['cognome_autore']; ?></a></td>
+                    <td>
+                        <?php $autori = getAuthorsByBookId( $book['id_libro'] ); ?>
+                        <?php foreach($autori as $autore): ?>
+                            <a href="?action=viewAuthor&id_autore=<?php echo $autore['id_autore']; ?>"> <?php echo $autore['nome'] . ' ' . $autore['cognome']; ?></a>,&nbsp;
+                        <?php endforeach; ?>
+                    </td>
                     <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $book['id_casa_editrice']; ?>"><?php echo $book['casaeditrice']; ?></a></td>
                     <td><?php echo $book['copia_sezione'].'/'.$book['copia_scaffale'].'.'.$book['id_copia']; ?></td>
                     <td><?php echo round(getAverageRateByCopyId($book['id_copia'])['votomedio'], 2) . '/5'; ?></td>
@@ -51,6 +94,7 @@
             <th>Casa editrice</th>
             <th>Data inizio</th>
             <th>Riconsegna</th>
+            <th>Utente</th>
             <th>Status</th>
             <th>Azioni</th>
         </tr>
@@ -77,17 +121,23 @@
                     <td><?php echo $prestito['copia_sezione'].'/'.$prestito['copia_scaffale'].'.'.$prestito['id_copia']; ?></td>
                     <td><?php echo $prestito['isbn']; ?></td>
                     <td><?php echo $prestito['titolo_libro']; ?></td>
-                    <td><?php echo $prestito['nome_autore'] . ' ' . $prestito['cognome_autore']; ?></td>
+                    <td>
+                        <?php $autori = getAuthorsByBookId( $prestito['id_libro'] ); ?>
+                        <?php foreach($autori as $autore): ?>
+                            <a href="?action=viewAuthor&id_autore=<?php echo $autore['id_autore']; ?>"> <?php echo $autore['nome'] . ' ' . $autore['cognome']; ?></a>,&nbsp;
+                        <?php endforeach; ?>
+                    </td>
                     <td><?php echo $prestito['casaeditrice']; ?></td>
                     <td><?php echo $prestito['data_inizio']; ?></td>
                     <td><?php echo date_format($finishDate, 'Y-m-d'); ?></td>
+                    <td><a href="?action=viewUser&id_utente=<?php echo $prestito['id_utente']; ?>"><?php echo $prestito['nome_utente'] . ' ' . $prestito['cognome_utente']; ?></a></td>
                     <td><button onclick="javascript:void(0)" class="btn btn-xs btn-<?php echo $cssClass; ?>"><?php echo $status;?></button></td>
                     <td><a href="?action=terminaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Termina prestito</button></a></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="7">Nessun prestito attivo</td>
+                <td colspan="10">Nessun prestito attivo</td>
             </tr>
         <?php endif; ?>
         </tbody>
@@ -113,7 +163,12 @@
                 <tr>
                     <td><?php echo $prestito['isbn']; ?></td>
                     <td><?php echo $prestito['titolo_libro']; ?></td>
-                    <td><?php echo $prestito['nome_autore'] . ' ' . $prestito['cognome_autore']; ?></td>
+                    <td>
+                        <?php $autori = getAuthorsByBookId( $prestito['id_libro'] ); ?>
+                        <?php foreach($autori as $autore): ?>
+                            <a href="?action=viewAuthor&id_autore=<?php echo $autore['id_autore']; ?>"> <?php echo $autore['nome'] . ' ' . $autore['cognome']; ?></a>,&nbsp;
+                        <?php endforeach; ?>
+                    </td>
                     <td><?php echo $prestito['data_inizio']; ?></td>
                     <td><?php echo $prestito['data_fine']; ?></td>
                     <td>

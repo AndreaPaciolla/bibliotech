@@ -20,9 +20,9 @@
                 <li><a href="?action=editProfile">Profile</a></li>
                 <li><a href="?action=doLogout">Logout</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
+            <!--<form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
-            </form>
+            </form>-->
         </div>
     </div>
 </nav>
@@ -35,6 +35,10 @@
                 if(isset($_GET['action'])) {
                     switch ($_GET['action']) {
                         case 'viewAuthor': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "view-author.php"; break;
+                        case 'addBook': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "add-book.php"; break;
+                        case 'addAuthor': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "add-author.php"; break;
+                        case 'editBook': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "edit-book.php"; break;
+                        case 'viewUser': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "view-user.php"; break;
                         case 'viewEditor': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "view-editor.php"; break;
                         case 'viewBook': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "view-book.php"; break;
                         case 'viewCopy': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "view-copy.php"; break;

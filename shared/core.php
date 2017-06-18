@@ -53,13 +53,10 @@ function getBookCopies() {
                          libro.id AS id_libro, 
                          libro.titolo AS titolo_libro, 
                          libro.isbn AS isbn, 
-                         autore.nome AS nome_autore, 
-                         autore.cognome AS cognome_autore, 
-                         autore.id AS id_autore,
                          casaeditrice.denominazione AS casaeditrice,
                          casaeditrice.id AS id_casa_editrice
-                  FROM libro, autore, autore_libro, copia, casaeditrice 
-                  WHERE copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND libro.id = autore_libro.id_libro AND autore_libro.id_autore = autore.id AND copia.disponibile = TRUE";
+                  FROM libro, copia, casaeditrice 
+                  WHERE copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND copia.disponibile = TRUE";
         $result = pg_query($db, $query);
         if (!$result) {
             echo "An error occurred.\n";
@@ -80,16 +77,29 @@ function getPrestiti($attuali=false, $idUtente) {
                              copia.sezione AS copia_sezione,
                              libro.titolo AS titolo_libro, 
                              libro.isbn AS isbn, 
-                             autore.nome AS nome_autore, 
-                             autore.cognome AS cognome_autore, 
+                             libro.id AS id_libro,
                              casaeditrice.denominazione AS casaeditrice, 
-                             prestito.id AS id_prestito
-                  FROM libro, autore, autore_libro, copia, casaeditrice, prestito
-                  WHERE prestito.id_copia = copia.id AND copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND libro.id = autore_libro.id_libro AND autore_libro.id_autore = autore.id AND prestito.id_utente = $idUtente AND data_inizio IS NOT NULL AND data_fine IS NULL;";
+                             prestito.id AS id_prestito,
+                             utente.nome AS nome_utente,
+                             utente.cognome AS cognome_utente,
+                             utente.id AS id_utente
+                  FROM libro, copia, casaeditrice, prestito, utente
+                  WHERE prestito.id_utente = utente.id AND prestito.id_copia = copia.id AND copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND prestito.id_utente = $idUtente AND data_inizio IS NOT NULL AND data_fine IS NULL;";
         } else {
-            $query = "SELECT prestito.voto AS voto_prestito, prestito.commento AS commento_prestito, prestito.data_fine AS data_fine, prestito.data_inizio AS data_inizio, libro.titolo AS titolo_libro, libro.isbn AS isbn, autore.nome AS nome_autore, autore.cognome AS cognome_autore, casaeditrice.denominazione AS casaeditrice, prestito.id AS id_prestito
-                  FROM libro, autore, autore_libro, copia, casaeditrice, prestito
-                  WHERE prestito.id_copia = copia.id AND copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND libro.id = autore_libro.id_libro AND autore_libro.id_autore = autore.id AND prestito.id_utente = $idUtente AND data_inizio IS NOT NULL AND data_fine IS NOT NULL;";
+            $query = "SELECT prestito.voto AS voto_prestito, 
+                             prestito.commento AS commento_prestito, 
+                             prestito.data_fine AS data_fine, 
+                             prestito.data_inizio AS data_inizio, 
+                             libro.titolo AS titolo_libro, 
+                             libro.isbn AS isbn,
+                             libro.id AS id_libro,
+                             casaeditrice.denominazione AS casaeditrice, 
+                             prestito.id AS id_prestito,
+                             utente.nome AS nome_utente,
+                             utente.cognome AS cognome_utente,
+                             utente.id AS id_utente
+                  FROM libro, copia, casaeditrice, prestito, utente
+                  WHERE prestito.id_utente = utente.id AND prestito.id_copia = copia.id AND copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND prestito.id_utente = $idUtente AND data_inizio IS NOT NULL AND data_fine IS NOT NULL;";
         }
 
         $result = pg_query($db, $query);
@@ -366,9 +376,27 @@ function getEditorById($id_casa_editrice) {
     }
 }
 
+function getEditors() {
+    $query = "SELECT * FROM casaeditrice";
+
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return pg_fetch_all($result);
+
+    }
+}
+
 function getBookById($id_libro) {
     $query = "SELECT libro.titolo AS titolo, 
                      libro.isbn AS isbn,
+                     libro.id AS id_libro,
+                     libro.id_lingua AS id_lingua,
                      libro.edizione AS edizione,
                      libro.anno_pubblicazione AS anno_pubblicazione,
                      lingua.nome AS lingua,
@@ -385,6 +413,60 @@ function getBookById($id_libro) {
         }
 
         return pg_fetch_all($result)[0];
+
+    }
+}
+
+function getBooks() {
+    $query = "SELECT libro.titolo AS titolo, 
+                     libro.isbn AS isbn,
+                     libro.id AS id_libro,
+                     libro.edizione AS edizione,
+                     libro.anno_pubblicazione AS anno_pubblicazione,
+                     lingua.nome AS lingua,
+                     casaeditrice.denominazione AS casaeditrice, 
+                     casaeditrice.id AS id_casa_editrice
+              FROM libro, lingua, casaeditrice
+              WHERE libro.id_lingua = lingua.id AND libro.id_casaeditrice=casaeditrice.id";
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return pg_fetch_all($result);
+
+    }
+}
+
+function getAutori() {
+    $query = "SELECT * FROM autore";
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return pg_fetch_all($result);
+
+    }
+}
+
+function getLingue() {
+    $query = "SELECT * FROM lingua";
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return pg_fetch_all($result);
 
     }
 }
@@ -416,6 +498,24 @@ function getCopyById($id_copia) {
                      libro.isbn AS isbn
               FROM copia, libro
               WHERE copia.id=$id_copia AND copia.id_libro=libro.id";
+
+    if( $db = dbConnect()) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return pg_fetch_all($result)[0];
+
+    }
+}
+
+function getUserById($id_utente) {
+    $query = "SELECT *
+              FROM utente
+              WHERE utente.id=$id_utente";
 
     if( $db = dbConnect()) {
         $result = pg_query($db, $query);
@@ -470,6 +570,105 @@ function getAverageRateByCopyId($id_copia) {
         return pg_fetch_all($result)[0];
 
     }
+}
+
+function editBook($bookData, $id_libro) {
+    $titolo = $bookData['titolo'];
+    $id_casa_editrice = $bookData['id_casa_editrice'];
+    $id_lingua = $bookData['id_lingua'];
+    $anno_pubblicazione = $bookData['anno_pubblicazione'];
+
+    $query = "UPDATE libro 
+              SET titolo = '$titolo',
+                  id_casaeditrice = $id_casa_editrice,
+                  id_lingua = $id_lingua,
+                  anno_pubblicazione = '$anno_pubblicazione'
+              WHERE libro.id=$id_libro";
+
+    if( $db = dbConnect() ) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        return true;
+
+    }
+}
+
+function addBook($bookData) {
+
+    $db = dbConnect();
+    // parse form data
+    $titolo = $bookData['titolo'];
+    $isbn = $bookData['isbn'];
+    $id_lingua = $bookData['id_lingua'];
+    $id_casaeditrice = $bookData['id_casaeditrice'];
+    $edizione = $bookData['edizione'];
+    $anno_pubblicazione = $bookData['anno_pubblicazione'];
+    $copie_disponibili = $bookData['copie_disponibili'];
+    $sezione = $bookData['sezione'];
+    $scaffale = $bookData['scaffale'];
+    $autori = $bookData['autori'];
+    // prepare queries
+    $queryGetBookId = "SELECT MAX(id) as next_id FROM libro";
+    if( $db = dbConnect() ) {
+        $result = pg_query($db, $queryGetBookId);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+    }
+    $nextId = pg_fetch_all($result)[0]['next_id'] + 1;
+
+    $queryAddBook = "INSERT INTO libro(id, titolo, isbn, id_lingua, id_casaeditrice, anno_pubblicazione, edizione) 
+                                VALUES($nextId, '$titolo', '$isbn', $id_lingua, $id_casaeditrice, '$anno_pubblicazione', $edizione )";
+
+
+    $result = pg_query($db, $queryAddBook);
+    if (!$result) {
+        echo "An error occurred.\n";
+        return false;
+        exit;
+    }
+
+    // let's update authors
+    foreach($autori as $id_autore) {
+        $result = pg_query($db, "INSERT INTO autore_libro(id_autore, id_libro) VALUES($id_autore, $nextId)");
+    }
+
+    // let's add the available copies
+    for($i=1; $i <= $copie_disponibili; $i++) {
+        $result = pg_query($db, "INSERT INTO copia(id_libro, scaffale, sezione) VALUES($nextId, $scaffale, '$sezione')");
+    }
+
+    return true;
+}
+
+function addAuthor($authorData) {
+    // parse form data
+    $nome = $authorData['nome'];
+    $cognome = $authorData['cognome'];
+    $data_nascita = $authorData['data_nascita'];
+    $biografia = $authorData['biografia'];
+    $id_citta_nascita = $authorData['id_citta_nascita'];
+
+    $query = "INSERT INTO autore(nome, cognome, data_nascita, id_citta_nascita, biografia) 
+                          VALUES('$nome', '$cognome', '$data_nascita', $id_citta_nascita, '$biografia')";
+
+    if( $db = dbConnect() ) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+        return true;
+    }
+    return false;
 }
 
 ?>
