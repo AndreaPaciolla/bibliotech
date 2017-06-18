@@ -18,9 +18,11 @@
             <td>
                 <?php if(is_array($recensioni) || is_object($recensioni)): ?>
                     <?php foreach($recensioni as $recensione => $value): ?>
-                        <b>Voto</b>: <?php echo $value['voto']; ?><br>
-                        <b>Commento: </b> <?php echo $value['commento'] ?>
-                        <small><i>by <?php echo $value['nome_utente'] . ' ' . $value['cognome_utente']; ?></i></small>
+                        <p>
+                            <b>Voto</b>: <?php echo $value['voto']; ?><br>
+                            <b>Commento: </b> <?php echo $value['commento'] ?>
+                            <small><i>by <?php echo $value['nome_utente'] . ' ' . $value['cognome_utente']; ?></i></small>
+                        </p>
                     <?php endforeach; ?>
                 <?php else: ?>
                     Nessuna valutazione ricevuta per questa copia.

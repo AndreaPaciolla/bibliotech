@@ -1,5 +1,5 @@
-<?php $bookCopies = getBookCopies(); ?>
 <?php
+    // GET CURRENT LOANS FOR EMPLOYEE OR OTHER ROLES
     if(isRole('dipendente', $_SESSION['user']['id'])) {
         $prestitiAttuali = getPrestiti(true, 'all');
     } else {
@@ -7,6 +7,7 @@
     }
 ?>
 <?php
+    // GET CURRENT LOANS FOR EMPLOYEE OR OTHER ROLES
     if(isRole('dipendente', $_SESSION['user']['id'])) {
         $prestitiPassati = getPrestiti(false, 'all');
     } else {
@@ -14,9 +15,10 @@
     }
 ?>
 
-<?php $libri = getBooks(); ?>
+<?php $bookCopies = getBookCopies(); // GET ALL THE BOOKS' COPIES ?>
+<?php $libri = getBooks(); // GET ALL THE BOOKS DEFINITIONS ?>
 
-<!-- Libri nel catalogo -->
+<!-- CATALOG BOOKS  -->
 <?php if(isRole('dipendente', $_SESSION['user']['id'])): ?>
     <h2 class="sub-header">Libri nel catalogo della biblioteca</h2>
     <div class="table-responsive">
@@ -52,9 +54,10 @@
         </table>
         <a href="?action=addBook"><button class="btn btn-primary btn-sm">Aggiungi nuovo libro</button></a>
         <a href="?action=addAuthor"><button class="btn btn-primary btn-sm">Aggiungi nuovo autore</button></a>
-    </div> <!-- ./ fine libri nel catalogo -->
+    </div> <!-- ./ end - CATALOG BOOKS  -->
 <?php endif; ?>
 
+<!-- CURRENT AVAILABLE BOOKS' COPIES -->
 <h2 class="sub-header">Copie volumi presenti in biblioteca</h2>
 <div class="table-responsive">
     <table class="table table-striped orderable">
@@ -98,8 +101,9 @@
         <?php endif; ?>
         </tbody>
     </table>
-</div>
+</div> <!-- ./ end - CURRENT AVAILABLE BOOKS' COPIES -->
 
+<!-- CURRENT LOANS -->
 <h2 class="sub-header">Prestiti in corso</h2>
 <div class="table-responsive">
     <table class="table table-striped orderable">
@@ -159,15 +163,16 @@
                         <td><a href="?action=viewUser&id_utente=<?php echo $prestito['id_utente']; ?>"><?php echo $prestito['nome_utente'] . ' ' . $prestito['cognome_utente']; ?></a></td>
                     <?php endif; ?>
                     <td><button onclick="javascript:void(0)" class="btn btn-xs btn-<?php echo $cssClass; ?>"><?php echo $status;?></button></td>
-                    <?php if(!isRole('dipendente', $_SESSION['user']['id']) && $prestito['stato_operativo'] == true): ?>
-                        <td><a href="?action=terminaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Termina prestito</button></a></td>
-                    <?php endif; ?>
 
-                    <?php if(isRole('dipendente', $_SESSION['user']['id']) && $prestito['stato_operativo'] == NULL): ?>
+                    <?php if(!isRole('dipendente', $_SESSION['user']['id']) && $prestito['stato_operativo'] == 't'): ?>
+                        <td><a href="?action=terminaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Termina prestito</button></a></td>
+                    <?php elseif(isRole('dipendente', $_SESSION['user']['id']) && $prestito['stato_operativo'] == NULL): ?>
                         <td>
                             <a href="?action=approvaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-success btn-xs">Ok</button></a>
                             <a href="?action=negaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-danger btn-xs">No</button></a>
                         </td>
+                    <?php else: ?>
+                        <td></td>
                     <?php endif; ?>
 
                 </tr>
@@ -179,8 +184,9 @@
         <?php endif; ?>
         </tbody>
     </table>
-</div>
+</div> <!-- ./ end - CURRENT LOANS -->
 
+<!-- STORICO PRESTITI -->
 <h2 class="sub-header">Storico prestiti</h2>
 <div class="table-responsive">
     <table class="table table-striped orderable">
@@ -210,11 +216,17 @@
                     </td>
                     <td><?php echo $prestito['data_inizio']; ?></td>
                     <td><?php echo $prestito['data_fine']; ?></td>
-                    <td><?php echo ($prestito['stato_operativo']) ? '<a href="javascript:void(0);" class="btn btn-xs btn-success">Prestito Accettato</a>' : '<a href="javascript:void(0);" class="btn btn-xs btn-danger">Prestito Rifiutato</a>'; ?></td>
+                    <td>
+                        <?php if($prestito['stato_operativo'] == 't'): ?>
+                            <a href="javascript:void(0);" class="btn btn-xs btn-success">Prestito Accettato</a>
+                        <?php elseif($prestito['stato_operativo'] == 'f'): ?>
+                            <a href="javascript:void(0);" class="btn btn-xs btn-danger">Prestito Rifiutato</a>
+                        <?php endif; ?>
+                    </td>
                     <?php if(isRole('dipendente', $_SESSION['user']['id'])): ?><td><a href="?action=viewUser&id_utente=<?php echo $prestito['id_utente']; ?>"><?php echo $prestito['nome_utente'] . ' ' . $prestito['cognome_utente']; ?></a></td><?php endif; ?>
                     <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?>
                         <td>
-                            <?php if($prestito['voto_prestito'] == NULL && $prestito['stato_operativo'] == true): ?><a href="?action=valutaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Valuta</button></a><?php endif; ?>
+                            <?php if($prestito['voto_prestito'] == NULL && $prestito['stato_operativo'] == 't'): ?><a href="?action=valutaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Valuta</button></a><?php endif; ?>
                             <?php if($prestito['voto_prestito'] !== NULL): ?> <?php echo $prestito['voto_prestito'] . '/5 - <b>Commento: </b>'. $prestito['commento_prestito']; ?> <?php endif; ?>
                         </td>
                     <?php endif; ?>
@@ -227,17 +239,18 @@
         <?php endif; ?>
         </tbody>
     </table>
-</div>
+</div> <!-- ./ FINE - STORICO PRESTITI -->
 
 <?php
 
+// PAGE ACTION ROUTING MANAGEMENT
 if(isset($_GET['action'])) {
     switch($_GET['action']) {
         case 'doLogout': doLogout(); goHome(); break;
         case 'richiediPrestito': doPrestito(); break;
-        case 'terminaPrestito': approvaPrestito($_GET['id_prestito']); goHome(); break;
-        case 'approvaPrestito': negaPrestito($_GET['id_prestito']); goHome(); break;
-        case 'negaPrestito': endPrestito(); break;
+        case 'terminaPrestito': endPrestito(); goHome(); break;
+        case 'approvaPrestito': approvaPrestito($_GET['id_prestito']); goHome(); break;
+        case 'negaPrestito': negaPrestito($_GET['id_prestito']); goHome(); break;
     }
 }
 

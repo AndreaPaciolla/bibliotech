@@ -1,6 +1,15 @@
 <?php
 @session_start();
 
+/***
+ * @description:
+ * MAIN PHP FILE
+ * THIS FILE EXPOSES SEVERAL FUNCTIONS TO MANAGE ENTITIES.
+ *
+ * THE UI IS MANAGED INSIDE PHP VIEW FILE DIRECTLY.
+ * @author: Andrea Paciolla
+ */
+
 require  __DIR__ . DIRECTORY_SEPARATOR . "utils". DIRECTORY_SEPARATOR . "database.php";
 require  __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "vendor". DIRECTORY_SEPARATOR . "autoload.php";
 
@@ -48,7 +57,6 @@ function getRoleByUserId($id_utente) {
             exit;
         }
 
-        //die(print_r(pg_fetch_all($result)));
         return pg_fetch_all($result)[0];
 
     }
@@ -550,7 +558,7 @@ function getRatesByCopyId($id_copia) {
                      utente.nome AS nome_utente,
                      utente.cognome AS cognome_utente
               FROM prestito, utente
-              WHERE prestito.id_copia=$id_copia AND prestito.id_utente=utente.id AND prestito.data_fine IS NOT NULL";
+              WHERE prestito.id_copia=$id_copia AND prestito.id_utente=utente.id AND prestito.data_fine IS NOT NULL AND prestito.voto IS NOT NULL AND prestito.commento IS NOT NULL";
 
     if( $db = dbConnect() ) {
         $result = pg_query($db, $query);
@@ -686,16 +694,7 @@ function addAuthor($authorData) {
 }
 
 function approvaPrestito($id_prestito) {
-    changeStatoOperativoPrestito(true, $id_prestito);
-}
-
-function negaPrestito($id_prestito) {
-    changeStatoOperativoPrestito(false, $id_prestito);
-}
-
-function changeStatoOperativoPrestito($value, $id_prestito) {
-    $value = ($value) ? 't' : 'f';
-    $query = "UPDATE prestito SET stato_operativo='$value' WHERE prestito.id=$id_prestito";
+    $query = "UPDATE prestito SET stato_operativo='t' WHERE prestito.id=$id_prestito";
 
     if( $db = dbConnect() ) {
         $result = pg_query($db, $query);
@@ -704,10 +703,27 @@ function changeStatoOperativoPrestito($value, $id_prestito) {
             return false;
             exit;
         }
-        alert('Prestito accettato.');
+        echo "<script>alert('Prestito accettato.')</script>";
         return true;
     }
-    alert('Prestito rifiutato.');
+    echo "<script>alert('Errore, riprovare.')</script>";
+    return false;
+}
+
+function negaPrestito($id_prestito) {
+    $query = "UPDATE prestito SET stato_operativo='f', data_fine='now()' WHERE prestito.id=$id_prestito";
+
+    if( $db = dbConnect() ) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+        echo "<script>alert('Prestito rifiutato.')</script>";
+        return true;
+    }
+    echo "<script>alert('Errore, riprovare.')</script>";
     return false;
 }
 
