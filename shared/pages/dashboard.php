@@ -190,7 +190,7 @@
 
 if(isset($_GET['action'])) {
     switch($_GET['action']) {
-        case 'doLogout': doLogout(); break;
+        case 'doLogout': doLogout(); goHome(); break;
         case 'richiediPrestito': doPrestito(); break;
         case 'terminaPrestito': endPrestito(); break;
     }

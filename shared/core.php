@@ -187,7 +187,6 @@ function registerUser($formData) {
             exit;
         }
 
-        doLogin($email, $password);
         return true;
     }
 }
