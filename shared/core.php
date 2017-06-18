@@ -2,6 +2,7 @@
 @session_start();
 
 require  __DIR__ . DIRECTORY_SEPARATOR . "utils". DIRECTORY_SEPARATOR . "database.php";
+require  __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "vendor". DIRECTORY_SEPARATOR . "autoload.php";
 
 function isLoggedUser() {
     return isset($_SESSION['user']);
@@ -394,6 +395,25 @@ function getRatesByCopyId($id_copia) {
 
         //die(print_r(pg_fetch_all($result)));
         return pg_fetch_all($result);
+
+    }
+}
+
+function getRoleByUserId($id_utente) {
+    $query = "SELECT ruolo.tempomax AS tempomax, ruolo.nome AS nomeruolo 
+              FROM ruolo, utente
+              WHERE utente.id_ruolo = ruolo.id AND utente.id = $id_utente";
+
+    if( $db = dbConnect() ) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        //die(print_r(pg_fetch_all($result)));
+        return pg_fetch_all($result)[0];
 
     }
 }

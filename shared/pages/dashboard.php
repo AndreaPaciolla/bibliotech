@@ -1,3 +1,5 @@
+<?php $role = getRoleByUserId($_SESSION['user']['id']); ?>
+
 <h2 class="sub-header">Copie volumi presenti in biblioteca</h2>
 <div class="table-responsive">
     <table class="table table-striped">
@@ -45,7 +47,20 @@
         <tbody>
         <?php if(is_array($prestitiAttuali) || is_object($prestitiAttuali)): ?>
             <?php foreach($prestitiAttuali as $prestito): ?>
-                <tr>
+                <?php
+                    $today = date_create(date("Y-m-d"));
+                    $finishDate = date_create( $prestito['data_inizio'] );
+                    date_add($finishDate, date_interval_create_from_date_string($role['tempomax'].' days'));
+
+                    $cssClass = '';
+
+                    switch( true ) {
+                        case ($today==$finishDate): $cssClass = 'warning'; break;
+                        case ($today<$finishDate): $cssClass ='success'; break;
+                        case ($today>$finishDate): $cssClass ='danger'; break;
+                    }
+                ?>
+                <tr class="<?php echo $cssClass; ?>">
                     <td><?php echo $prestito['id_prestito']; ?></td>
                     <td><?php echo $prestito['isbn']; ?></td>
                     <td><?php echo $prestito['titolo_libro']; ?></td>
@@ -100,3 +115,15 @@
         </tbody>
     </table>
 </div>
+
+<?php
+
+if(isset($_GET['action'])) {
+    switch($_GET['action']) {
+        case 'doLogout': doLogout(); break;
+        case 'richiediPrestito': doPrestito(); break;
+        case 'terminaPrestito': endPrestito(); break;
+    }
+}
+
+?>

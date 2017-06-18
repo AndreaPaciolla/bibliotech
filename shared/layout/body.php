@@ -34,9 +34,6 @@
             <?php
                 if(isset($_GET['action'])) {
                     switch ($_GET['action']) {
-                        case 'doLogout': doLogout(); break;
-                        case 'richiediPrestito': doPrestito(); break;
-                        case 'terminaPrestito': endPrestito(); break;
                         case 'viewAuthor': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "view-author.php"; break;
                         case 'viewEditor': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "view-editor.php"; break;
                         case 'viewBook': include_once __DIR__ . DIRECTORY_SEPARATOR . "..". DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "view-book.php"; break;
