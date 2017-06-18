@@ -115,7 +115,7 @@
             <th>Riconsegna</th>
             <?php if(isRole('dipendente', $_SESSION['user']['id'])): ?><th>Utente</th><?php endif; ?>
             <th>Status</th>
-            <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?><th>Azioni</th><?php endif; ?>
+            <th>Azioni</th>
         </tr>
         </thead>
         <tbody>
@@ -130,10 +130,15 @@
                     $cssClass = '';
                     $status='';
 
-                    switch( true ) {
-                        case ($today==$finishDate): $cssClass = 'warning'; $status='In scadenza oggi'; break;
-                        case ($today<$finishDate): $cssClass ='success'; $status='Regolare'; break;
-                        case ($today>$finishDate): $cssClass ='danger'; $status='Scaduto'; break;
+                    if($prestito['stato_operativo'] == NULL) {
+                        $cssClass = 'info';
+                        $status = 'In attesa...';
+                    } else {
+                        switch( true ) {
+                            case ($today==$finishDate): $cssClass = 'warning'; $status='In scadenza oggi'; break;
+                            case ($today<$finishDate): $cssClass ='success'; $status='Regolare'; break;
+                            case ($today>$finishDate): $cssClass ='danger'; $status='Scaduto'; break;
+                        }
                     }
                 ?>
                 <tr class="<?php echo $cssClass; ?>">
@@ -154,9 +159,17 @@
                         <td><a href="?action=viewUser&id_utente=<?php echo $prestito['id_utente']; ?>"><?php echo $prestito['nome_utente'] . ' ' . $prestito['cognome_utente']; ?></a></td>
                     <?php endif; ?>
                     <td><button onclick="javascript:void(0)" class="btn btn-xs btn-<?php echo $cssClass; ?>"><?php echo $status;?></button></td>
-                    <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?>
+                    <?php if(!isRole('dipendente', $_SESSION['user']['id']) && $prestito['stato_operativo'] == true): ?>
                         <td><a href="?action=terminaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Termina prestito</button></a></td>
                     <?php endif; ?>
+
+                    <?php if(isRole('dipendente', $_SESSION['user']['id']) && $prestito['stato_operativo'] == NULL): ?>
+                        <td>
+                            <a href="?action=approvaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-success btn-xs">Ok</button></a>
+                            <a href="?action=negaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-danger btn-xs">No</button></a>
+                        </td>
+                    <?php endif; ?>
+
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -178,6 +191,8 @@
             <th>Autore</th>
             <th>Data inizio</th>
             <th>Data fine</th>
+            <th>Status</th>
+            <?php if(isRole('dipendente', $_SESSION['user']['id'])): ?><th>Utente</th><?php endif; ?>
             <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?><th>Azioni</th><?php endif; ?>
         </tr>
         </thead>
@@ -195,9 +210,11 @@
                     </td>
                     <td><?php echo $prestito['data_inizio']; ?></td>
                     <td><?php echo $prestito['data_fine']; ?></td>
+                    <td><?php echo ($prestito['stato_operativo']) ? '<a href="javascript:void(0);" class="btn btn-xs btn-success">Prestito Accettato</a>' : '<a href="javascript:void(0);" class="btn btn-xs btn-danger">Prestito Rifiutato</a>'; ?></td>
+                    <?php if(isRole('dipendente', $_SESSION['user']['id'])): ?><td><a href="?action=viewUser&id_utente=<?php echo $prestito['id_utente']; ?>"><?php echo $prestito['nome_utente'] . ' ' . $prestito['cognome_utente']; ?></a></td><?php endif; ?>
                     <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?>
                         <td>
-                            <?php if($prestito['voto_prestito'] == NULL): ?><a href="?action=valutaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Valuta</button></a><?php endif; ?>
+                            <?php if($prestito['voto_prestito'] == NULL && $prestito['stato_operativo'] == true): ?><a href="?action=valutaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Valuta</button></a><?php endif; ?>
                             <?php if($prestito['voto_prestito'] !== NULL): ?> <?php echo $prestito['voto_prestito'] . '/5 - <b>Commento: </b>'. $prestito['commento_prestito']; ?> <?php endif; ?>
                         </td>
                     <?php endif; ?>
@@ -218,7 +235,9 @@ if(isset($_GET['action'])) {
     switch($_GET['action']) {
         case 'doLogout': doLogout(); goHome(); break;
         case 'richiediPrestito': doPrestito(); break;
-        case 'terminaPrestito': endPrestito(); break;
+        case 'terminaPrestito': approvaPrestito($_GET['id_prestito']); goHome(); break;
+        case 'approvaPrestito': negaPrestito($_GET['id_prestito']); goHome(); break;
+        case 'negaPrestito': endPrestito(); break;
     }
 }
 

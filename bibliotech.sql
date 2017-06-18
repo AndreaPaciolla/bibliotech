@@ -456,7 +456,8 @@ CREATE TABLE "prestito" (
   "data_inizio" DATE NOT NULL,
   "data_fine" DATE,
   "voto" SMALLINT,
-  "commento" TEXT
+  "commento" TEXT,
+  "stato_operativo" BOOLEAN
 );
 
 CREATE INDEX "idx_prestito__id_copia" ON "prestito" ("id_copia");

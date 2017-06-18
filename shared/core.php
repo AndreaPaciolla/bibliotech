@@ -16,6 +16,10 @@ function goHome() {
     echo "<script>window.location.href = './';</script>";
 }
 
+function alert($msg) {
+    echo "<script>alert($msg);</script>";
+}
+
 function getCities() {
     if( $db = dbConnect()) {
         $result = pg_query($db, "SELECT * FROM citta;");
@@ -88,6 +92,7 @@ function getPrestiti($attuali=false, $idUtente) {
                              prestito.data_inizio AS data_inizio,
                              prestito.voto AS voto_prestito,
                              prestito.commento AS commento_prestito,
+                             prestito.stato_operativo AS stato_operativo,
                              utente.nome AS nome_utente,
                              utente.cognome AS cognome_utente,
                              utente.id AS id_utente
@@ -677,6 +682,32 @@ function addAuthor($authorData) {
         }
         return true;
     }
+    return false;
+}
+
+function approvaPrestito($id_prestito) {
+    changeStatoOperativoPrestito(true, $id_prestito);
+}
+
+function negaPrestito($id_prestito) {
+    changeStatoOperativoPrestito(false, $id_prestito);
+}
+
+function changeStatoOperativoPrestito($value, $id_prestito) {
+    $value = ($value) ? 't' : 'f';
+    $query = "UPDATE prestito SET stato_operativo='$value' WHERE prestito.id=$id_prestito";
+
+    if( $db = dbConnect() ) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+        alert('Prestito accettato.');
+        return true;
+    }
+    alert('Prestito rifiutato.');
     return false;
 }
 
