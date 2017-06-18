@@ -8,6 +8,10 @@ function isLoggedUser() {
     return isset($_SESSION['user']);
 }
 
+function goHome() {
+    echo "<script>window.location.href = './';</script>";
+}
+
 function getCities() {
     if( $db = dbConnect()) {
         $result = pg_query($db, "SELECT * FROM citta;");
@@ -17,6 +21,27 @@ function getCities() {
         }
 
         return pg_fetch_all($result);
+    }
+}
+
+function getRoleByUserId($id_utente) {
+    $query = "SELECT ruolo.tempomax AS tempomax, 
+                     ruolo.librimax AS librimax, 
+                     ruolo.nome AS nomeruolo 
+              FROM ruolo, utente
+              WHERE utente.id_ruolo = ruolo.id AND utente.id = $id_utente";
+
+    if( $db = dbConnect() ) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        //die(print_r(pg_fetch_all($result)));
+        return pg_fetch_all($result)[0];
+
     }
 }
 
@@ -49,7 +74,16 @@ function getPrestiti($attuali=false, $idUtente) {
     if( $db = dbConnect() ) {
 
         if($attuali) {
-            $query = "SELECT prestito.data_inizio AS data_inizio, libro.titolo AS titolo_libro, libro.isbn AS isbn, autore.nome AS nome_autore, autore.cognome AS cognome_autore, casaeditrice.denominazione AS casaeditrice, prestito.id AS id_prestito
+            $query = "SELECT prestito.data_inizio AS data_inizio, 
+                             copia.id AS id_copia,
+                             copia.scaffale AS copia_scaffale,
+                             copia.sezione AS copia_sezione,
+                             libro.titolo AS titolo_libro, 
+                             libro.isbn AS isbn, 
+                             autore.nome AS nome_autore, 
+                             autore.cognome AS cognome_autore, 
+                             casaeditrice.denominazione AS casaeditrice, 
+                             prestito.id AS id_prestito
                   FROM libro, autore, autore_libro, copia, casaeditrice, prestito
                   WHERE prestito.id_copia = copia.id AND copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND libro.id = autore_libro.id_libro AND autore_libro.id_autore = autore.id AND prestito.id_utente = $idUtente AND data_inizio IS NOT NULL AND data_fine IS NULL;";
         } else {
@@ -150,12 +184,28 @@ function doPrestito() {
     $id_copia = trim($_GET['id_copia']);
     $data_inizio = date('Y-m-d');
     $id_utente = $_SESSION['user']['id'];
+    $role = getRoleByUserId($id_utente);
 
-    // Controllo se ci sono copie disponibili di questo libro
+    $queryPossibilitRichiestaPrestito = "SELECT COUNT(*) AS prestiti_in_corso FROM prestito WHERE id_utente=$id_utente AND prestito.data_fine IS NULL";
     $queryRegistraPrestito = "INSERT INTO prestito(id_utente, id_copia, data_inizio) VALUES($id_utente, $id_copia, '$data_inizio')";
     $queryStornaGiacenza = "UPDATE copia SET disponibile=FALSE WHERE copia.id = $id_copia";
 
     if( $db = dbConnect() ) {
+        $result = pg_query($db, $queryPossibilitRichiestaPrestito);
+        if (!$result) {
+            echo "An error occurred.\n" . pg_last_error($db);
+            return false;
+            exit;
+        }
+
+        $row = pg_fetch_all($result)[0];
+        if( (int)$row['prestiti_in_corso'] >= (int)$role['librimax'] ) {
+            echo "<script>alert('Non puoi richiedere altri libri. Concludi prima qualche prestito.');</script>";
+            goHome();
+            return false;
+            exit;
+        }
+
         $result = pg_query($db, $queryRegistraPrestito);
         if (!$result) {
             echo "An error occurred.\n" . pg_last_error($db);
@@ -171,6 +221,7 @@ function doPrestito() {
         }
 
         echo "<script>alert('Prestito effettuato');</script>";
+        goHome();
         return true;
     }
 }
@@ -201,6 +252,7 @@ function endPrestito() {
         }
 
         echo "<script>alert('Prestito rientrato');</script>";
+        goHome();
         return true;
     }
 }
@@ -399,23 +451,6 @@ function getRatesByCopyId($id_copia) {
     }
 }
 
-function getRoleByUserId($id_utente) {
-    $query = "SELECT ruolo.tempomax AS tempomax, ruolo.nome AS nomeruolo 
-              FROM ruolo, utente
-              WHERE utente.id_ruolo = ruolo.id AND utente.id = $id_utente";
 
-    if( $db = dbConnect() ) {
-        $result = pg_query($db, $query);
-        if (!$result) {
-            echo "An error occurred.\n";
-            return false;
-            exit;
-        }
-
-        //die(print_r(pg_fetch_all($result)));
-        return pg_fetch_all($result)[0];
-
-    }
-}
 
 ?>

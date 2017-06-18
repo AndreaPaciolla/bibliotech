@@ -15,17 +15,23 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach($bookCopies as $book): ?>
+        <?php if(is_array($bookCopies) || is_object($bookCopies)): ?>
+            <?php foreach($bookCopies as $book): ?>
+                <tr>
+                    <td><a href="?action=viewCopy&id_copia=<?php echo $book['id_copia']; ?>"><?php echo $book['id_copia']; ?></a></td>
+                    <td><?php echo $book['isbn']; ?></td>
+                    <td><a href="?action=viewBook&id_libro=<?php echo $book['id_libro']; ?>"> <?php echo $book['titolo_libro']; ?></a></td>
+                    <td><a href="?action=viewAuthor&id_autore=<?php echo $book['id_autore']; ?>"> <?php echo $book['nome_autore'] . ' ' . $book['cognome_autore']; ?></a></td>
+                    <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $book['id_casa_editrice']; ?>"><?php echo $book['casaeditrice']; ?></a></td>
+                    <td><?php echo $book['copia_sezione'].'/'.$book['copia_scaffale'].'.'.$book['id_copia']; ?></td>
+                    <td><a href="?action=richiediPrestito&id_copia=<?php echo $book['id_copia']; ?>"><button class="btn btn-primary btn-sm">Richiedi prestito</button></a></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
             <tr>
-                <td><a href="?action=viewCopy&id_copia=<?php echo $book['id_copia']; ?>"><?php echo $book['id_copia']; ?></a></td>
-                <td><?php echo $book['isbn']; ?></td>
-                <td><a href="?action=viewBook&id_libro=<?php echo $book['id_libro']; ?>"> <?php echo $book['titolo_libro']; ?></a></td>
-                <td><a href="?action=viewAuthor&id_autore=<?php echo $book['id_autore']; ?>"> <?php echo $book['nome_autore'] . ' ' . $book['cognome_autore']; ?></a></td>
-                <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $book['id_casa_editrice']; ?>"><?php echo $book['casaeditrice']; ?></a></td>
-                <td><?php echo $book['copia_sezione'].'/'.$book['copia_scaffale'].'.'.$book['id_copia']; ?></td>
-                <td><a href="?action=richiediPrestito&id_copia=<?php echo $book['id_copia']; ?>"><button class="btn btn-primary btn-sm">Richiedi prestito</button></a></td>
+                <td colspan="7">Nessun libro disponibile per prestito</td>
             </tr>
-        <?php endforeach; ?>
+        <?php endif; ?>
         </tbody>
     </table>
 </div>
@@ -35,12 +41,15 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
+            <th>#</th>
+            <th>Copia</th>
             <th>ISBN</th>
             <th>Titolo</th>
             <th>Autore</th>
             <th>Casa editrice</th>
             <th>Data inizio</th>
+            <th>Riconsegna</th>
+            <th>Status</th>
             <th>Azioni</th>
         </tr>
         </thead>
@@ -53,20 +62,24 @@
                     date_add($finishDate, date_interval_create_from_date_string($role['tempomax'].' days'));
 
                     $cssClass = '';
+                    $status='';
 
                     switch( true ) {
-                        case ($today==$finishDate): $cssClass = 'warning'; break;
-                        case ($today<$finishDate): $cssClass ='success'; break;
-                        case ($today>$finishDate): $cssClass ='danger'; break;
+                        case ($today==$finishDate): $cssClass = 'warning'; $status='In scadenza oggi'; break;
+                        case ($today<$finishDate): $cssClass ='success'; $status='Regolare'; break;
+                        case ($today>$finishDate): $cssClass ='danger'; $status='Scaduto'; break;
                     }
                 ?>
                 <tr class="<?php echo $cssClass; ?>">
                     <td><?php echo $prestito['id_prestito']; ?></td>
+                    <td><?php echo $prestito['copia_sezione'].'/'.$prestito['copia_scaffale'].'.'.$prestito['id_copia']; ?></td>
                     <td><?php echo $prestito['isbn']; ?></td>
                     <td><?php echo $prestito['titolo_libro']; ?></td>
                     <td><?php echo $prestito['nome_autore'] . ' ' . $prestito['cognome_autore']; ?></td>
                     <td><?php echo $prestito['casaeditrice']; ?></td>
                     <td><?php echo $prestito['data_inizio']; ?></td>
+                    <td><?php echo date_format($finishDate, 'Y-m-d'); ?></td>
+                    <td><button onclick="javascript:void(0)" class="btn btn-xs btn-<?php echo $cssClass; ?>"><?php echo $status;?></button></td>
                     <td><a href="?action=terminaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Termina prestito</button></a></td>
                 </tr>
             <?php endforeach; ?>

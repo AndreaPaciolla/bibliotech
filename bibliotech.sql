@@ -43,9 +43,9 @@ CREATE TABLE "ruolo" (
 );
 
 INSERT INTO ruolo(nome, librimax, tempomax) VALUES('studente', 5, 60);
-INSERT INTO ruolo(nome, librimax, tempomax VALUES('docente', 10, 90);
-INSERT INTO ruolo(nome, librimax, tempomax VALUES('dipendente', 0, 0);
-INSERT INTO ruolo(nome, librimax, tempomax VALUES('altro', 3, 14);
+INSERT INTO ruolo(nome, librimax, tempomax) VALUES('docente', 10, 90);
+INSERT INTO ruolo(nome, librimax, tempomax) VALUES('dipendente', 0, 0);
+INSERT INTO ruolo(nome, librimax, tempomax) VALUES('altro', 3, 14);
 
 CREATE TABLE "stato" (
   "id" SERIAL PRIMARY KEY,
