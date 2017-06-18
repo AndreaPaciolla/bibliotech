@@ -64,11 +64,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputTessera" class="sr-only">Tessera</label>
-                                    <input type="text" name="tessera" id="inputTessera" class="form-control" placeholder="Tessera" required>
-                                </div>
-
-                                <div class="form-group">
                                     <label for="inputCittaResidenza" class="sr-only">Citta di residenza</label>
                                     <select class="form-control" name="id_citta" id="inputCittaResidenza">
                                         <?php foreach($citta as $citt => $c): ?>

@@ -162,7 +162,6 @@ function registerUser($formData) {
     $cognome = $formData['cognome'];
     $telefono = $formData['telefono'];
     $email = $formData['email'];
-    $tessera = $formData['tessera'];
     $id_citta = $formData['id_citta'];
     $password = md5(trim($formData['password']));
     $current_date = date('Y-m-d');
@@ -171,6 +170,15 @@ function registerUser($formData) {
     if( $db = dbConnect() ) {
         pg_connection_reset($db);
         $db = dbConnect();
+
+        // GENERA NUOVO NUMERO DI TESSERA
+        $query = "SELECT MAX(id) AS max_id FROM utente";
+        $row = pg_fetch_all( pg_query($db, $query) )[0];
+        $tessera = (string)$row['max_id'];
+        for($i=1; strlen($tessera) < 6; $i++)
+            $tessera = '0'. $tessera;
+
+
         $result = pg_query($db, "INSERT INTO utente(id_ruolo, nome, cognome, telefono, email, tessera, data_registrazione, id_citta, password) 
                                        VALUES($ruolo, '$nome', '$cognome', '$telefono', '$email', '$tessera', '$current_date', $id_citta, '$password');");
         if (!$result) {
