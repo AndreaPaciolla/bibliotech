@@ -369,6 +369,7 @@ function getEditorById($id_casa_editrice) {
 function getBookById($id_libro) {
     $query = "SELECT libro.titolo AS titolo, 
                      libro.isbn AS isbn,
+                     libro.edizione AS edizione,
                      libro.anno_pubblicazione AS anno_pubblicazione,
                      lingua.nome AS lingua,
                      casaeditrice.denominazione AS casaeditrice, 
@@ -451,6 +452,24 @@ function getRatesByCopyId($id_copia) {
     }
 }
 
+function getAverageRateByCopyId($id_copia) {
+    $query = "SELECT AVG(prestito.voto) AS votomedio
+              FROM prestito
+              WHERE prestito.id_copia=$id_copia AND prestito.voto IS NOT NULL
+              GROUP BY prestito.id_copia";
 
+    if( $db = dbConnect() ) {
+        $result = pg_query($db, $query);
+        if (!$result) {
+            echo "An error occurred.\n";
+            return false;
+            exit;
+        }
+
+        //die(print_r(pg_fetch_all($result)));
+        return pg_fetch_all($result)[0];
+
+    }
+}
 
 ?>

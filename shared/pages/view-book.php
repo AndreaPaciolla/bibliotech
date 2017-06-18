@@ -23,6 +23,10 @@
             <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $book['id_casa_editrice'];?>" ><?php echo $book['casaeditrice']; ?></a></td>
         </tr>
         <tr>
+            <td>Edizione</td>
+            <td><?php echo $book['edizione']; ?></td>
+        </tr>
+        <tr>
             <td>Lingua</td>
             <td><?php echo $book['lingua']; ?></td>
         </tr>

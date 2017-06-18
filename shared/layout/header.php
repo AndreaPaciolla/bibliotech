@@ -17,5 +17,6 @@
     <!-- Custom styles for this template -->
     <link href="assets/css/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/signin.css">
+    <link rel="stylesheet" href="assets/css/datatable.bootstrap.min.css">
 
 </head>

@@ -2,7 +2,7 @@
 
 <h2 class="sub-header">Copie volumi presenti in biblioteca</h2>
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped orderable">
         <thead>
         <tr>
             <th>#</th>
@@ -11,6 +11,7 @@
             <th>Autore</th>
             <th>Casa editrice</th>
             <th>Posizione</th>
+            <th>Rating</th>
             <th>Azioni</th>
         </tr>
         </thead>
@@ -24,12 +25,13 @@
                     <td><a href="?action=viewAuthor&id_autore=<?php echo $book['id_autore']; ?>"> <?php echo $book['nome_autore'] . ' ' . $book['cognome_autore']; ?></a></td>
                     <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $book['id_casa_editrice']; ?>"><?php echo $book['casaeditrice']; ?></a></td>
                     <td><?php echo $book['copia_sezione'].'/'.$book['copia_scaffale'].'.'.$book['id_copia']; ?></td>
+                    <td><?php echo round(getAverageRateByCopyId($book['id_copia'])['votomedio'], 2) . '/5'; ?></td>
                     <td><a href="?action=richiediPrestito&id_copia=<?php echo $book['id_copia']; ?>"><button class="btn btn-primary btn-sm">Richiedi prestito</button></a></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="7">Nessun libro disponibile per prestito</td>
+                <td colspan="8">Nessun libro disponibile per prestito</td>
             </tr>
         <?php endif; ?>
         </tbody>
@@ -38,7 +40,7 @@
 
 <h2 class="sub-header">Prestiti attuali</h2>
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped orderable">
         <thead>
         <tr>
             <th>#</th>
@@ -94,7 +96,7 @@
 
 <h2 class="sub-header">Prestiti passati</h2>
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped orderable">
         <thead>
         <tr>
             <th>ISBN</th>
@@ -140,3 +142,5 @@ if(isset($_GET['action'])) {
 }
 
 ?>
+
+
