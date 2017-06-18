@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6288cd4e-f4f1-443e-8a72-a9c524d6954e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/core.php" afterPath="$PROJECT_DIR$/shared/core.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/layout/body.php" afterPath="$PROJECT_DIR$/shared/layout/body.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/pages/dashboard.php" afterPath="$PROJECT_DIR$/shared/pages/dashboard.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shared/pages/evaluate-prestito.php" afterPath="$PROJECT_DIR$/shared/pages/evaluate-prestito.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -99,7 +96,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="core.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="core.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shared/core.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="504">
@@ -192,6 +189,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="102">
+                <caret line="6" column="20" lean-forward="false" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="bibliotech.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bibliotech.sql">
           <provider selected="true" editor-type-id="text-editor">
@@ -265,7 +275,6 @@
         <option value="$PROJECT_DIR$/shared/pages/view-author.php" />
         <option value="$PROJECT_DIR$/shared/pages/view-editor.php" />
         <option value="$PROJECT_DIR$/shared/pages/view-copy.php" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/shared/pages/view-book.php" />
         <option value="$PROJECT_DIR$/assets/css/datatable.bootstrap.min.css" />
@@ -289,6 +298,7 @@
         <option value="$PROJECT_DIR$/shared/layout/body.php" />
         <option value="$PROJECT_DIR$/shared/pages/dashboard.php" />
         <option value="$PROJECT_DIR$/shared/core.php" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -469,15 +479,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1497635871844</updated>
-      <workItem from="1497635873112" duration="68432000" />
+      <workItem from="1497635873112" duration="68739000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68432000" />
+    <option name="totallyTimeSpent" value="68739000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <frame x="-8" y="-8" width="2576" height="1416" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13515624" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -575,17 +585,6 @@
         <state relative-caret-position="306">
           <caret line="18" column="373" lean-forward="false" selection-start-line="18" selection-start-column="373" selection-end-line="18" selection-end-column="373" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="119">
-            <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-            <folding />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -916,6 +915,17 @@
             <marker date="1497801287537" expanded="true" signature="19846:19922" ph="INSERT INTO autore... " />
             <marker date="1497801287537" expanded="true" signature="19846:20027" ph="INSERT INTO autore... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="102">
+            <caret line="6" column="20" lean-forward="false" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
