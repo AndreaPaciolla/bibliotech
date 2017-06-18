@@ -1,9 +1,3 @@
-
-<?php $bookCopies = getBookCopies(); ?>
-<?php $prestitiAttuali = getPrestiti(true, $_SESSION['user']['id']); ?>
-<?php $prestitiPassati = getPrestiti(false, $_SESSION['user']['id']); ?>
-
-
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -20,9 +14,6 @@
                 <li><a href="?action=editProfile">Profile</a></li>
                 <li><a href="?action=doLogout">Logout</a></li>
             </ul>
-            <!--<form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>-->
         </div>
     </div>
 </nav>

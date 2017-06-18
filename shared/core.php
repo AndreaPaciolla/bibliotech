@@ -8,6 +8,10 @@ function isLoggedUser() {
     return isset($_SESSION['user']);
 }
 
+function isRole($roleName, $uid) {
+    return getRoleByUserId($uid)['nomeruolo'] === $roleName;
+}
+
 function goHome() {
     echo "<script>window.location.href = './';</script>";
 }
@@ -27,7 +31,8 @@ function getCities() {
 function getRoleByUserId($id_utente) {
     $query = "SELECT ruolo.tempomax AS tempomax, 
                      ruolo.librimax AS librimax, 
-                     ruolo.nome AS nomeruolo 
+                     ruolo.nome AS nomeruolo,
+                     ruolo.id AS id_ruolo
               FROM ruolo, utente
               WHERE utente.id_ruolo = ruolo.id AND utente.id = $id_utente";
 
@@ -70,8 +75,7 @@ function getBookCopies() {
 function getPrestiti($attuali=false, $idUtente) {
     if( $db = dbConnect() ) {
 
-        if($attuali) {
-            $query = "SELECT prestito.data_inizio AS data_inizio, 
+        $query = "SELECT prestito.data_inizio AS data_inizio, 
                              copia.id AS id_copia,
                              copia.scaffale AS copia_scaffale,
                              copia.sezione AS copia_sezione,
@@ -80,26 +84,24 @@ function getPrestiti($attuali=false, $idUtente) {
                              libro.id AS id_libro,
                              casaeditrice.denominazione AS casaeditrice, 
                              prestito.id AS id_prestito,
+                             prestito.data_fine AS data_fine,
+                             prestito.data_inizio AS data_inizio,
+                             prestito.voto AS voto,
+                             prestito.commento AS commento,
                              utente.nome AS nome_utente,
                              utente.cognome AS cognome_utente,
                              utente.id AS id_utente
                   FROM libro, copia, casaeditrice, prestito, utente
-                  WHERE prestito.id_utente = utente.id AND prestito.id_copia = copia.id AND copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND prestito.id_utente = $idUtente AND data_inizio IS NOT NULL AND data_fine IS NULL;";
+                  WHERE prestito.id_utente = utente.id AND prestito.id_copia = copia.id AND copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id";
+
+        if($attuali) {
+            $query .= " AND data_inizio IS NOT NULL AND data_fine IS NULL";
         } else {
-            $query = "SELECT prestito.voto AS voto_prestito, 
-                             prestito.commento AS commento_prestito, 
-                             prestito.data_fine AS data_fine, 
-                             prestito.data_inizio AS data_inizio, 
-                             libro.titolo AS titolo_libro, 
-                             libro.isbn AS isbn,
-                             libro.id AS id_libro,
-                             casaeditrice.denominazione AS casaeditrice, 
-                             prestito.id AS id_prestito,
-                             utente.nome AS nome_utente,
-                             utente.cognome AS cognome_utente,
-                             utente.id AS id_utente
-                  FROM libro, copia, casaeditrice, prestito, utente
-                  WHERE prestito.id_utente = utente.id AND prestito.id_copia = copia.id AND copia.id_libro = libro.id AND libro.id_casaeditrice = casaeditrice.id AND prestito.id_utente = $idUtente AND data_inizio IS NOT NULL AND data_fine IS NOT NULL;";
+            $query .= " AND data_inizio IS NOT NULL AND data_fine IS NOT NULL";
+        }
+
+        if($idUtente != 'all') {
+            $query .= " AND prestito.id_utente = $idUtente";
         }
 
         $result = pg_query($db, $query);

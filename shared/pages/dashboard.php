@@ -1,42 +1,59 @@
-<?php $role = getRoleByUserId($_SESSION['user']['id']); ?>
+<?php $bookCopies = getBookCopies(); ?>
+<?php
+    if(isRole('dipendente', $_SESSION['user']['id'])) {
+        $prestitiAttuali = getPrestiti(true, 'all');
+    } else {
+        $prestitiAttuali = getPrestiti(true, $_SESSION['user']['id']);
+    }
+?>
+<?php
+    if(isRole('dipendente', $_SESSION['user']['id'])) {
+        $prestitiPassati = getPrestiti(false, 'all');
+    } else {
+        $prestitiPassati = getPrestiti(false, $_SESSION['user']['id']);
+    }
+?>
+
 <?php $libri = getBooks(); ?>
 
 <!-- Libri nel catalogo -->
-<h2 class="sub-header">Libri nel catalogo della biblioteca</h2>
-<div class="table-responsive">
-    <table class="table table-striped orderable">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>ISBN</th>
-            <th>Titolo</th>
-            <th>Edizione</th>
-            <th>Casa editrice</th>
-            <th>Azioni</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php if(is_array($libri) || is_object($libri)): ?>
-            <?php foreach($libri as $libro): ?>
-                <tr>
-                    <td><a href="?action=viewBook&id_libro=<?php echo $libro['id_libro']; ?>"><?php echo $libro['id_libro']; ?></a></td>
-                    <td><?php echo $libro['isbn']; ?></td>
-                    <td><a href="?action=viewBook&id_libro=<?php echo $libro['id_libro']; ?>"> <?php echo $libro['titolo']; ?></a></td>
-                    <td><?php echo $libro['edizione']; ?></td>
-                    <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $libro['id_casa_editrice']; ?>"><?php echo $libro['casaeditrice']; ?></a></td>
-                    <td><a href="?action=editBook&id_libro=<?php echo $libro['id_libro']; ?>"><button class="btn btn-primary btn-sm">Edita</button></a></td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
+<?php if(isRole('dipendente', $_SESSION['user']['id'])): ?>
+    <h2 class="sub-header">Libri nel catalogo della biblioteca</h2>
+    <div class="table-responsive">
+        <table class="table table-striped orderable">
+            <thead>
             <tr>
-                <td colspan="6">Nessun libro disponibile nel catalogo della biblioteca</td>
+                <th>#</th>
+                <th>ISBN</th>
+                <th>Titolo</th>
+                <th>Edizione</th>
+                <th>Casa editrice</th>
+                <th>Azioni</th>
             </tr>
-        <?php endif; ?>
-        </tbody>
-    </table>
-    <a href="?action=addBook"><button class="btn btn-primary btn-sm">Aggiungi nuovo libro</button></a>
-    <a href="?action=addAuthor"><button class="btn btn-primary btn-sm">Aggiungi nuovo autore</button></a>
-</div> <!-- ./ fine libri nel catalogo -->
+            </thead>
+            <tbody>
+            <?php if(is_array($libri) || is_object($libri)): ?>
+                <?php foreach($libri as $libro): ?>
+                    <tr>
+                        <td><a href="?action=viewBook&id_libro=<?php echo $libro['id_libro']; ?>"><?php echo $libro['id_libro']; ?></a></td>
+                        <td><?php echo $libro['isbn']; ?></td>
+                        <td><a href="?action=viewBook&id_libro=<?php echo $libro['id_libro']; ?>"> <?php echo $libro['titolo']; ?></a></td>
+                        <td><?php echo $libro['edizione']; ?></td>
+                        <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $libro['id_casa_editrice']; ?>"><?php echo $libro['casaeditrice']; ?></a></td>
+                        <td><a href="?action=editBook&id_libro=<?php echo $libro['id_libro']; ?>"><button class="btn btn-primary btn-sm">Edita</button></a></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6">Nessun libro disponibile nel catalogo della biblioteca</td>
+                </tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
+        <a href="?action=addBook"><button class="btn btn-primary btn-sm">Aggiungi nuovo libro</button></a>
+        <a href="?action=addAuthor"><button class="btn btn-primary btn-sm">Aggiungi nuovo autore</button></a>
+    </div> <!-- ./ fine libri nel catalogo -->
+<?php endif; ?>
 
 <h2 class="sub-header">Copie volumi presenti in biblioteca</h2>
 <div class="table-responsive">
@@ -50,7 +67,7 @@
             <th>Casa editrice</th>
             <th>Posizione</th>
             <th>Rating</th>
-            <th>Azioni</th>
+            <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?><th>Azioni</th><?php endif; ?>
         </tr>
         </thead>
         <tbody>
@@ -69,7 +86,9 @@
                     <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $book['id_casa_editrice']; ?>"><?php echo $book['casaeditrice']; ?></a></td>
                     <td><?php echo $book['copia_sezione'].'/'.$book['copia_scaffale'].'.'.$book['id_copia']; ?></td>
                     <td><?php echo round(getAverageRateByCopyId($book['id_copia'])['votomedio'], 2) . '/5'; ?></td>
-                    <td><a href="?action=richiediPrestito&id_copia=<?php echo $book['id_copia']; ?>"><button class="btn btn-primary btn-sm">Richiedi prestito</button></a></td>
+                    <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?>
+                        <td><a href="?action=richiediPrestito&id_copia=<?php echo $book['id_copia']; ?>"><button class="btn btn-primary btn-sm">Richiedi prestito</button></a></td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -94,9 +113,9 @@
             <th>Casa editrice</th>
             <th>Data inizio</th>
             <th>Riconsegna</th>
-            <th>Utente</th>
+            <?php if(isRole('dipendente', $_SESSION['user']['id'])): ?><th>Utente</th><?php endif; ?>
             <th>Status</th>
-            <th>Azioni</th>
+            <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?><th>Azioni</th><?php endif; ?>
         </tr>
         </thead>
         <tbody>
@@ -105,6 +124,7 @@
                 <?php
                     $today = date_create(date("Y-m-d"));
                     $finishDate = date_create( $prestito['data_inizio'] );
+                    $role = getRoleByUserId($prestito['id_utente']);
                     date_add($finishDate, date_interval_create_from_date_string($role['tempomax'].' days'));
 
                     $cssClass = '';
@@ -130,9 +150,13 @@
                     <td><?php echo $prestito['casaeditrice']; ?></td>
                     <td><?php echo $prestito['data_inizio']; ?></td>
                     <td><?php echo date_format($finishDate, 'Y-m-d'); ?></td>
-                    <td><a href="?action=viewUser&id_utente=<?php echo $prestito['id_utente']; ?>"><?php echo $prestito['nome_utente'] . ' ' . $prestito['cognome_utente']; ?></a></td>
+                    <?php if(isRole('dipendente', $_SESSION['user']['id'])): ?>
+                        <td><a href="?action=viewUser&id_utente=<?php echo $prestito['id_utente']; ?>"><?php echo $prestito['nome_utente'] . ' ' . $prestito['cognome_utente']; ?></a></td>
+                    <?php endif; ?>
                     <td><button onclick="javascript:void(0)" class="btn btn-xs btn-<?php echo $cssClass; ?>"><?php echo $status;?></button></td>
-                    <td><a href="?action=terminaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Termina prestito</button></a></td>
+                    <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?>
+                        <td><a href="?action=terminaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Termina prestito</button></a></td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -154,7 +178,7 @@
             <th>Autore</th>
             <th>Data inizio</th>
             <th>Data fine</th>
-            <th>Azioni</th>
+            <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?><th>Azioni</th><?php endif; ?>
         </tr>
         </thead>
         <tbody>
@@ -171,10 +195,12 @@
                     </td>
                     <td><?php echo $prestito['data_inizio']; ?></td>
                     <td><?php echo $prestito['data_fine']; ?></td>
-                    <td>
-                        <?php if($prestito['voto_prestito'] == NULL): ?><a href="?action=valutaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Valuta</button></a><?php endif; ?>
-                        <?php if($prestito['voto_prestito'] !== NULL): ?> <?php echo $prestito['voto_prestito'] . '/5 - <b>Commento: </b>'. $prestito['commento_prestito']; ?> <?php endif; ?>
-                    </td>
+                    <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?>
+                        <td>
+                            <?php if($prestito['voto_prestito'] == NULL): ?><a href="?action=valutaPrestito&id_prestito=<?php echo $prestito['id_prestito']; ?>"><button class="btn btn-primary btn-sm">Valuta</button></a><?php endif; ?>
+                            <?php if($prestito['voto_prestito'] !== NULL): ?> <?php echo $prestito['voto_prestito'] . '/5 - <b>Commento: </b>'. $prestito['commento_prestito']; ?> <?php endif; ?>
+                        </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
