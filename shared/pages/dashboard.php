@@ -100,7 +100,7 @@
     </table>
 </div>
 
-<h2 class="sub-header">Prestiti attuali</h2>
+<h2 class="sub-header">Prestiti in corso</h2>
 <div class="table-responsive">
     <table class="table table-striped orderable">
         <thead>
@@ -168,13 +168,13 @@
     </table>
 </div>
 
-<h2 class="sub-header">Prestiti passati</h2>
+<h2 class="sub-header">Storico prestiti</h2>
 <div class="table-responsive">
     <table class="table table-striped orderable">
         <thead>
         <tr>
             <th>ISBN</th>
-            <th>Titolo</th>
+            <th>Copia Richiesta</th>
             <th>Autore</th>
             <th>Data inizio</th>
             <th>Data fine</th>
@@ -186,7 +186,7 @@
             <?php foreach($prestitiPassati as $prestito): ?>
                 <tr>
                     <td><?php echo $prestito['isbn']; ?></td>
-                    <td><?php echo $prestito['titolo_libro']; ?></td>
+                    <td><a href="?action=viewCopy&id_copia=<?php echo $prestito['id_copia']; ?>"><?php echo $prestito['titolo_libro']; ?></a></td>
                     <td>
                         <?php $autori = getAuthorsByBookId( $prestito['id_libro'] ); ?>
                         <?php foreach($autori as $autore): ?>

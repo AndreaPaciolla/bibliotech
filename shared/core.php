@@ -86,8 +86,8 @@ function getPrestiti($attuali=false, $idUtente) {
                              prestito.id AS id_prestito,
                              prestito.data_fine AS data_fine,
                              prestito.data_inizio AS data_inizio,
-                             prestito.voto AS voto,
-                             prestito.commento AS commento,
+                             prestito.voto AS voto_prestito,
+                             prestito.commento AS commento_prestito,
                              utente.nome AS nome_utente,
                              utente.cognome AS cognome_utente,
                              utente.id AS id_utente
@@ -153,7 +153,7 @@ function doLogin($userEmail, $userPwd) {
             $_SESSION['user'] = $rows[0];
         }
 
-        return $_SESSION['user'] !== NULL;
+        return isset($_SESSION['user']) && $_SESSION['user'] !== NULL;
     }
 }
 
