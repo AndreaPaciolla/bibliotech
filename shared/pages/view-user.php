@@ -43,6 +43,10 @@
             <td><?php foreach($citta as $key => $value) echo ($value['id'] == $user['id_citta']) ? $value['nome'] : ''; ?></td>
         </tr>
         <tr>
+            <td>Indirizzo di residenza</td>
+            <td><?php echo (isset($user['indirizzo'])) ? $user['indirizzo'] : 'Non indicato'; ?></td>
+        </tr>
+        <tr>
             <td>Sesso</td>
             <td><?php echo $user['sesso']; ?></td>
         </tr>

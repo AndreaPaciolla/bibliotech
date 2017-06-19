@@ -33,7 +33,7 @@
         <label for="inputLingua">Lingua</label>
         <select class="form-control" name="id_lingua" id="inputLingua">
             <?php foreach($lingue as $lingua => $l): ?>
-                <option value="<?php echo $l['id']; ?>" ><?php echo $l['nome']; ?></option>
+                <option value="<?php echo $l['id']; ?>" ><?php echo $l['nome_esteso']; ?></option>
             <?php endforeach; ?>
         </select>
     </div>

@@ -66,10 +66,11 @@
             <th>#</th>
             <th>ISBN</th>
             <th>Titolo</th>
+            <th>Edizione</th>
             <th>Autore</th>
             <th>Casa editrice</th>
             <th>Posizione</th>
-            <th>Rating</th>
+            <th>Rating medio</th>
             <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?><th>Azioni</th><?php endif; ?>
         </tr>
         </thead>
@@ -80,6 +81,7 @@
                     <td><a href="?action=viewCopy&id_copia=<?php echo $book['id_copia']; ?>"><?php echo $book['id_copia']; ?></a></td>
                     <td><?php echo $book['isbn']; ?></td>
                     <td><a href="?action=viewBook&id_libro=<?php echo $book['id_libro']; ?>"> <?php echo $book['titolo_libro']; ?></a></td>
+                    <td><?php echo $book['edizione']; ?></td>
                     <td>
                         <?php $autori = getAuthorsByBookId( $book['id_libro'] ); ?>
                         <?php foreach($autori as $autore): ?>
@@ -113,6 +115,7 @@
             <th>Copia</th>
             <th>ISBN</th>
             <th>Titolo</th>
+            <th>Edizione</th>
             <th>Autore</th>
             <th>Casa editrice</th>
             <th>Data inizio</th>
@@ -150,6 +153,7 @@
                     <td><?php echo $prestito['copia_sezione'].'/'.$prestito['copia_scaffale'].'.'.$prestito['id_copia']; ?></td>
                     <td><?php echo $prestito['isbn']; ?></td>
                     <td><?php echo $prestito['titolo_libro']; ?></td>
+                    <td><?php echo $prestito['edizione']; ?></td>
                     <td>
                         <?php $autori = getAuthorsByBookId( $prestito['id_libro'] ); ?>
                         <?php foreach($autori as $autore): ?>
@@ -194,6 +198,7 @@
         <tr>
             <th>ISBN</th>
             <th>Copia Richiesta</th>
+            <th>Edizione</th>
             <th>Autore</th>
             <th>Data inizio</th>
             <th>Data fine</th>
@@ -208,6 +213,7 @@
                 <tr>
                     <td><?php echo $prestito['isbn']; ?></td>
                     <td><a href="?action=viewCopy&id_copia=<?php echo $prestito['id_copia']; ?>"><?php echo $prestito['titolo_libro']; ?></a></td>
+                    <td><?php echo $prestito['edizione']; ?></td>
                     <td>
                         <?php $autori = getAuthorsByBookId( $prestito['id_libro'] ); ?>
                         <?php foreach($autori as $autore): ?>

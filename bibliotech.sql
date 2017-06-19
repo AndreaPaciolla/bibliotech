@@ -3,7 +3,7 @@
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 
-CREATE DATABASE bibliotech IF NOT EXISTS
+CREATE DATABASE bibliotech
   WITH OWNER = postgres
        ENCODING = 'UTF8'
        TABLESPACE = pg_default
@@ -16,24 +16,25 @@ CREATE DATABASE bibliotech IF NOT EXISTS
 
 CREATE TABLE "lingua" (
   "id" SERIAL PRIMARY KEY,
-  "nome" VARCHAR(5) UNIQUE NOT NULL
+  "nome" VARCHAR(5) UNIQUE NOT NULL,
+  "nome_esteso" VARCHAR(100) UNIQUE NOT NULL
 );
 
-INSERT INTO lingua(nome) VALUES('az');
-INSERT INTO lingua(nome) VALUES('cz');
-INSERT INTO lingua(nome) VALUES('de');
-INSERT INTO lingua(nome) VALUES('ja');
-INSERT INTO lingua(nome) VALUES('fa');
-INSERT INTO lingua(nome) VALUES('en');
-INSERT INTO lingua(nome) VALUES('uk');
-INSERT INTO lingua(nome) VALUES('sv');
-INSERT INTO lingua(nome) VALUES('ru');
-INSERT INTO lingua(nome) VALUES('tr');
-INSERT INTO lingua(nome) VALUES('nl');
-INSERT INTO lingua(nome) VALUES('it');
-INSERT INTO lingua(nome) VALUES('pl');
-INSERT INTO lingua(nome) VALUES('ge');
-INSERT INTO lingua(nome) VALUES('fr');
+INSERT INTO lingua(nome, nome_esteso) VALUES
+('az', 'azera'),
+('cz', 'ceco'),
+('de', 'tedesco'),
+('ja', 'giapponese'),
+('fa', 'farsi'),
+('en', 'inglese'),
+('sv', 'svedese'),
+('ru', 'russo'),
+('tr', 'turco'),
+('nl', 'olandese'),
+('it', 'italiano'),
+('pl', 'polacco'),
+('ge', 'etiope'),
+('fr', 'francese');
 
 CREATE TABLE "ruolo" (
   "id" SERIAL PRIMARY KEY,
@@ -302,11 +303,11 @@ INSERT INTO citta(id, nome, id_provincia) VALUES
 (23997, 'Pievebelvicino', 1896),
 (23998, 'Piombino Dese', 1896),
 (23999, 'Piove di Sacco', 1896),
-(24000, 'Ponte San Nicolo', 1896),
-(24001, 'Ponzano Veneto', 1896),
-(24002, 'Porto Tolle', 1896),
+(24000, 'Mantova', 1896),
+(24001, 'Milano', 1896),
+(24002, 'Como', 1896),
 (24003, 'Porto Viro', 1896),
-(24004, 'Portogruaro', 1896),
+(24004, 'Cambridge', 1896),
 (24005, 'Preganziol', 1896),
 (24006, 'Quinto di Treviso', 1896),
 (24007, 'Riese Pio X', 1896),
@@ -327,7 +328,8 @@ INSERT INTO autore(id_citta_nascita, nome, cognome, data_nascita, biografia) VAL
 (24001, 'Philip', 'Pullman', '1984/02/16', 'La poesia è ovunque.'),
 (24002, 'Douglas', 'Adams', '1989/02/16', 'La perfezione è il niente.'),
 (24005, 'JK', 'Rowling', '1975/02/16', 'La magia è insita in ogni giorno.'),
-(24004, 'Harper', 'Lee', '1986/02/16', 'Considero me stesso un poeta sin dalla minore età.');
+(24006, 'Harper', 'Lee', '1986/02/16', 'Considero me stesso un poeta sin dalla minore età.'),
+(24007, 'Bjarne', 'Stroustrup', '1980/02/10', 'Il vero linguaggio è composto da due caratteri.');
 
 CREATE INDEX "idx_autore__id_citta_nascita" ON "autore" ("id_citta_nascita");
 
@@ -344,8 +346,8 @@ INSERT INTO casaeditrice(denominazione, id_citta) VALUES
 ('Armando Curcio Editore – www.armandocurcioeditore.it', 24001),
 ('Bollati Boringhieri Editore – www.bollatiboringhieri.it', 24001),
 ('Bompiani Editore – www.bompiani.eu', 24001),
-('Fanucci Editore – www.fanucci.it', 24001),
-('Franco Angeli Editore – www.francoangeli.it', 24004),
+('Pearson', 24000),
+('Addison-Wesley', 24004),
 ('Garzanti Editore – www.garzanti.it', 24006),
 ('Hoepli – www.hoepli.it', 23994);
 
@@ -357,9 +359,9 @@ CREATE TABLE "libro" (
   "id" SERIAL PRIMARY KEY,
   "id_casaeditrice" INTEGER NOT NULL,
   "id_lingua" INTEGER NOT NULL,
-  "isbn" TEXT NOT NULL,
+  "isbn" VARCHAR(20) NOT NULL,
   "titolo" VARCHAR(255) NOT NULL,
-  "edizione" INTEGER NOT NULL,
+  "edizione" VARCHAR(255) NOT NULL,
   "anno_pubblicazione" DATE NOT NULL
 );
 
@@ -368,12 +370,18 @@ CREATE INDEX "idx_libro__id_casaeditrice" ON "libro" ("id_casaeditrice");
 CREATE INDEX "idx_libro__id_lingua" ON "libro" ("id_lingua");
 
 INSERT INTO libro(id_casaeditrice, id_lingua, isbn, titolo, anno_pubblicazione, edizione) VALUES
-(1, 12, '88-515-2159', 'Il Signore degli Anelli', '1993/02/01', 1),
-(1, 12, '88-515-2189', 'Orgoglio e Pregiudizio', '1997/02/01', 1),
-(7, 12, '88-515-1159', 'Queste Oscure Materie', '1993/03/01', 1),
-(7, 12, '88-515-2199', 'Guida Galattica per gli Autostoppisti', '1998/02/01', 1),
-(5, 12, '88-515-2211', 'Harry Potter e il Calice di Fuoco', '2001/02/01', 1),
-(7, 12, '88-515-2150', 'Il Buio Oltre la Siepe', '1999/02/01', 1);
+(1, 12, '5180321563825', 'Il Signore degli Anelli', '1993/02/01', '1st'),
+(1, 12, '2720321563146', 'Orgoglio e Pregiudizio', '1997/02/01', '1st'),
+(7, 12, '3783321569847', 'Queste Oscure Materie', '1993/03/01', '1st'),
+(7, 12, '4780421583848', 'Guida Galattica per gli Autostoppisti', '1998/02/01', '1st'),
+(5, 12, '1780351763849', 'Harry Potter e il Calice di Fuoco', '2001/02/01', '1st'),
+(7, 12, '8780326563840', 'Il Buio Oltre la Siepe', '1999/02/01', '1st'),
+(6, 6, '9780321563842', 'C++', '1985/01/01', '1st'),
+(6, 6, '9780321563842', 'C++', '1991/01/01', '2nd'),
+(6, 6, '9780321563842', 'C++', '1997/01/01', '3rd'),
+(6, 6, '9780321563842', 'C++', '2000/01/01', 'special'),
+(6, 6, '9780321563842', 'C++', '2013/01/01', '4th'),
+(5, 12, '9788865184486', 'C++. Linguaggio, libreria standard, principi di programmazione.', '2015/01/01', '4th');
 
 ALTER TABLE "libro" ADD CONSTRAINT "fk_libro__id_casaeditrice" FOREIGN KEY ("id_casaeditrice") REFERENCES "casaeditrice" ("id");
 
@@ -390,7 +398,13 @@ INSERT INTO autore_libro(id_libro, id_autore) VALUES
 (3,3),
 (4,4),
 (5,5),
-(6,6);
+(6,6),
+(7,7),
+(8,7),
+(9,7),
+(10,7),
+(11,7),
+(12,7);
 
 
 CREATE INDEX "idx_autore_libro" ON "autore_libro" ("id_libro");
@@ -413,7 +427,20 @@ INSERT INTO copia(id_libro, sezione, scaffale) VALUES
 (3, 'LET', 2),
 (5, 'LET', 3),
 (5, 'LET', 3),
-(6, 'LET', 3);
+(6, 'LET', 3),
+(7, 'INF', 52),
+(8, 'INF', 52),
+(9, 'INF', 52),
+(10, 'INF', 52),
+(10, 'INF', 52),
+(11, 'INF', 52),
+(11, 'INF', 52),
+(11, 'INF', 52),
+(12, 'INF', 52),
+(12, 'INF', 52),
+(12, 'INF', 52),
+(12, 'INF', 52),
+(12, 'INF', 52);
 
 
 ALTER TABLE "copia" ADD CONSTRAINT "fk_copia__id_libro" FOREIGN KEY ("id_libro") REFERENCES "libro" ("id");
@@ -423,6 +450,7 @@ CREATE TABLE "utente" (
   "id_ruolo" INTEGER NOT NULL,
   "id_citta_nascita" INTEGER,
   "id_citta" INTEGER NOT NULL,
+  "indirizzo" VARCHAR(255),
   "nome" TEXT NOT NULL,
   "cognome" VARCHAR(255) NOT NULL,
   "telefono" VARCHAR(15) UNIQUE NOT NULL,
@@ -434,8 +462,11 @@ CREATE TABLE "utente" (
   "password" VARCHAR(255) NOT NULL
 );
 
-INSERT INTO utente(id_ruolo, id_citta, id_citta_nascita, nome, cognome, telefono, email, tessera, data_registrazione, sesso, password) VALUES
-(1, 24001, 24000, 'Andrea', 'Paciolla', '3406669321', 'andreapaciolla@gmail.com', '000001', '2017/02/16', 'M', '5f4dcc3b5aa765d61d8327deb882cf99');
+INSERT INTO utente(id_ruolo, id_citta, id_citta_nascita, data_nascita, nome, cognome, telefono, email, tessera, data_registrazione, sesso, indirizzo, password) VALUES
+(1, 24000, 24000, '1993-02-16', 'Andrea', 'Paciolla', '3406669321', 'andrea.paciolla@studenti.unimi.it', '000001', '2017/02/16', 'M', 'via ojetti, 11', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(1, 24001, 24000, '1970-01-01', 'Mario', 'Rossi', '3284574896', 'mrossi@studenti.unimi.it', '000002', '2017/06/19', 'M', 'via Pace, 15','5f4dcc3b5aa765d61d8327deb882cf99'),
+(2, 24001, 24002, '1970-01-01', 'Alice', 'Rossi', '3358956231', 'arossi@studenti.unimi.it', '000003', '2017/05/01', 'F', 'via Verdi, 8','5f4dcc3b5aa765d61d8327deb882cf99'),
+(4, 24001, 24000, '1968-09-08', 'Franco', 'Noto', '3218987587', 'fnoto@unimi.it', '000004', '2017/01/01', 'M', 'via Montenapoleone, 1','5f4dcc3b5aa765d61d8327deb882cf99');
 
 CREATE INDEX "idx_utente__id_citta" ON "utente" ("id_citta");
 
@@ -467,3 +498,22 @@ CREATE INDEX "idx_prestito__id_utente" ON "prestito" ("id_utente");
 ALTER TABLE "prestito" ADD CONSTRAINT "fk_prestito__id_copia" FOREIGN KEY ("id_copia") REFERENCES "copia" ("id");
 
 ALTER TABLE "prestito" ADD CONSTRAINT "fk_prestito__id_utente" FOREIGN KEY ("id_utente") REFERENCES "utente" ("id");
+
+INSERT INTO prestito(id_copia, id_utente, data_inizio, data_fine, stato_operativo) VALUES
+(5, 2, '2017/03/01', NULL, 't'),
+(6, 2, '2017/06/01', NULL, 't'),
+(7, 2, '2017/06/01', NULL, 't'),
+(8, 2, '2017/06/01', NULL, 't'),
+(10, 2, '2017/06/01', NULL, 't'),
+(13, 2, '2017/05/31', '2017/05/31', 'f'),
+(11, 3, '2017/05/01', NULL, 't'),
+(14, 3, '2017/05/01', NULL, NULL);
+
+INSERT INTO prestito(id_copia, id_utente, data_inizio, data_fine, stato_operativo, voto, commento) VALUES
+(5, 2, '2017/01/01', '2017/01/10', 't', 5, 'ottimo libro, consiglio!'),
+(6, 2, '2017/01/01', '2017/01/10', 't', NULL, NULL),
+(7, 2, '2017/01/01', '2017/01/10', 't', NULL, NULL),
+
+(5, 3, '2017/05/01', '2017/05/15', 't', 4, 'esiste di meglio, ma consiglio!'),
+(6, 3, '2017/05/01', '2017/05/15', 't', NULL, NULL),
+(7, 3, '2017/05/01', '2017/05/16', 't', NULL, NULL);

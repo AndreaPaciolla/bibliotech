@@ -26,6 +26,11 @@
     </div>
 
     <div class="form-group">
+        <label for="inputIndirizzo">Indirizzo (via/civico)</label>
+        <input type="text" name="indirizzo" value="<?php echo $currentProfile['indirizzo']; ?>" id="inputIndirizzo" class="form-control" placeholder="Indirizzo" required>
+    </div>
+
+    <div class="form-group">
         <label for="inputTelefono">Telefono</label>
         <input type="text" name="telefono" value="<?php echo $currentProfile['telefono']; ?>" id="inputTelefono" class="form-control" placeholder="Telefono" required>
     </div>

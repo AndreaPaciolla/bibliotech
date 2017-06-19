@@ -71,6 +71,7 @@ function getBookCopies() {
                          copia.sezione AS copia_sezione, 
                          libro.id AS id_libro, 
                          libro.titolo AS titolo_libro, 
+                         libro.edizione AS edizione, 
                          libro.isbn AS isbn, 
                          casaeditrice.denominazione AS casaeditrice,
                          casaeditrice.id AS id_casa_editrice
@@ -94,6 +95,7 @@ function getPrestiti($attuali=false, $idUtente) {
                              copia.scaffale AS copia_scaffale,
                              copia.sezione AS copia_sezione,
                              libro.titolo AS titolo_libro, 
+                             libro.edizione AS edizione, 
                              libro.isbn AS isbn, 
                              libro.id AS id_libro,
                              casaeditrice.denominazione AS casaeditrice, 
@@ -336,11 +338,13 @@ function editProfile($userData) {
     $id_citta = $userData['id_citta'];
     $id_citta_nascita = $userData['id_citta_nascita'];
     $telefono = $userData['telefono'];
+    $indirizzo = $userData['indirizzo'];
 
     // LET'S PREPARE THE UPDATE USER PROFILE QUERY
     $query = "UPDATE utente    
               SET nome='$nome',
                   cognome='$cognome',
+                  indirizzo='$indirizzo',
                   id_citta=$id_citta,
                   id_citta_nascita=$id_citta_nascita,
                   telefono=$telefono,
@@ -650,7 +654,7 @@ function addBook($bookData) {
     $nextId = pg_fetch_all($result)[0]['next_id'] + 1;
 
     $queryAddBook = "INSERT INTO libro(id, titolo, isbn, id_lingua, id_casaeditrice, anno_pubblicazione, edizione) 
-                                VALUES($nextId, '$titolo', '$isbn', $id_lingua, $id_casaeditrice, '$anno_pubblicazione', $edizione )";
+                                VALUES($nextId, '$titolo', '$isbn', $id_lingua, $id_casaeditrice, '$anno_pubblicazione', '$edizione')";
 
 
     $result = pg_query($db, $queryAddBook);
