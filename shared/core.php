@@ -1,6 +1,8 @@
 <?php
 @session_start();
 
+define("TESSERA_ID_MAXIMUM_LENGTH", 6);
+
 /***
  * @description:
  * MAIN PHP FILE
@@ -189,8 +191,9 @@ function registerUser($formData) {
         // GENERA NUOVO NUMERO DI TESSERA
         $query = "SELECT MAX(id) AS max_id FROM utente";
         $row = pg_fetch_all( pg_query($db, $query) )[0];
-        $tessera = (string)$row['max_id'];
-        for($i=1; strlen($tessera) < 6; $i++)
+        // RETRIEVE THE MAXIMUM AND SUM 1
+        $tessera = (string)$row['max_id']+1;
+        for($i=1; strlen($tessera) < TESSERA_ID_MAXIMUM_LENGTH; $i++) // 6 is the maximum length
             $tessera = '0'. $tessera;
 
 
