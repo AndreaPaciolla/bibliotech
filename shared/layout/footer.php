@@ -7,7 +7,7 @@
 <script src="assets/js/jquery.dataTables.min.js"></script>
 <script src="assets/js/dataTables.bootstrap.min.js"></script>
 <!--[if lt IE 9]>
-<script src="html5shiv.min.js"></script>
+<script src="assets/js/html5shiv.min.js"></script>
 <script src="assets/js/respond.min.js"></script>
 <![endif]-->
 <script>
