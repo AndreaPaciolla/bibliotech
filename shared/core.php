@@ -582,7 +582,8 @@ function getRatesByCopyId($id_copia) {
 }
 
 function getAverageRateByCopyId($id_copia) {
-    $query = "SELECT AVG(prestito.voto) AS votomedio
+    $query = "SELECT AVG(prestito.voto) AS votomedio,
+                     COUNT(prestito.voto) AS voti_totali
               FROM prestito
               WHERE prestito.id_copia=$id_copia AND prestito.voto IS NOT NULL
               GROUP BY prestito.id_copia";

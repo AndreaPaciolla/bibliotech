@@ -90,7 +90,7 @@
                     </td>
                     <td><a href="?action=viewEditor&id_casa_editrice=<?php echo $book['id_casa_editrice']; ?>"><?php echo $book['casaeditrice']; ?></a></td>
                     <td><?php echo $book['copia_sezione'].'/'.$book['copia_scaffale'].'.'.$book['id_copia']; ?></td>
-                    <td><?php echo round(getAverageRateByCopyId($book['id_copia'])['votomedio'], 2) . '/5'; ?></td>
+                    <td><?php echo (getAverageRateByCopyId($book['id_copia'])['voti_totali'] > 0 ) ? round(getAverageRateByCopyId($book['id_copia'])['votomedio'], 2) . '/5' : 'N.D'; ?></td>
                     <?php if(!isRole('dipendente', $_SESSION['user']['id'])): ?>
                         <td><a href="?action=richiediPrestito&id_copia=<?php echo $book['id_copia']; ?>"><button class="btn btn-primary btn-sm">Richiedi prestito</button></a></td>
                     <?php endif; ?>
